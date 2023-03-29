@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'LaravelRRR';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'LaravelRRR'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
