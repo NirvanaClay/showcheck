@@ -1,4 +1,4 @@
-#root {
+#app {
   min-width: 100vw;
   max-width: 100vw;
   min-height: 100vh;
@@ -13,9 +13,11 @@
   background-position: 50% 30%;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-#root button {
+#app button {
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -28,7 +30,7 @@
           align-items: center;
 }
 
-#root input[type='submit'] {
+#app input[type='submit'] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
