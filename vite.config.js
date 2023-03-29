@@ -4,8 +4,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // import reactRefresh from '@vitejs/plugin-react-refresh';
-import path from 'path';
-
 export default defineConfig(({ command }) => ({
 //   plugins: [reactRefresh()],
   resolve: {
