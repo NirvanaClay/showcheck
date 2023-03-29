@@ -82,7 +82,7 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
     else{
 
     }
-  }, [spinnerDegree, isLoading]);
+  }, [spinnerDegree, isLoading])
 
   return (
     <div id={id} className={`result ${selectedResult && 'single'}`}>
