@@ -10,6 +10,11 @@ export default defineConfig(({ command }) => ({
 //   plugins: [
 //     reactRefresh(),
 //   ],
+resolve: {
+    alias: {
+      '@': resolve(__dirname, 'resources/js'),
+    },
+  },
   build: {
     outDir: 'public/build',
     manifest: true,
