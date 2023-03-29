@@ -1,0 +1,21 @@
+{
+  "resources/img/watching1.jpg": {
+    "file": "assets/watching1-4e4564d5.jpg",
+    "src": "resources/img/watching1.jpg"
+  },
+  "resources/js/Pages/Main.css": {
+    "file": "assets/Main-26f88b8a.css",
+    "src": "resources/js/Pages/Main.css"
+  },
+  "resources/js/Pages/Main.jsx": {
+    "assets": [
+      "assets/watching1-4e4564d5.jpg"
+    ],
+    "css": [
+      "assets/Main-26f88b8a.css"
+    ],
+    "file": "assets/Main-38951dff.js",
+    "isEntry": true,
+    "src": "resources/js/Pages/Main.jsx"
+  }
+}
