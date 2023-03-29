@@ -1,7 +1,6 @@
 {
     "private": true,
     "scripts": {
-        "start": "node server.js",
         "dev": "vite",
         "build": "vite build"
     },
