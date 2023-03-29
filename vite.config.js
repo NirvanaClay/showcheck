@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // vite.config.js
 // import { defineConfig } from 'vite'
@@ -12,7 +13,7 @@ export default defineConfig(({ command }) => ({
 //   ],
 resolve: {
     alias: {
-      '@': resolve(__dirname, 'resources/js'),
+      '@': path.resolve(__dirname, 'resources/js'),
     },
   },
   build: {
