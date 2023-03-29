@@ -3,7 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-import { defineConfig } from 'vite';
 // import reactRefresh from '@vitejs/plugin-react-refresh';
 import path from 'path';
 
