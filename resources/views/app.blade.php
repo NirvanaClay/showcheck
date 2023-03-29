@@ -4,8 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name='f-u'>
-
         <title inertia>{{ config('app.name', 'LaravelTEST') }}</title>
                 {{-- <title inertia>Testing</title> --}}
 
