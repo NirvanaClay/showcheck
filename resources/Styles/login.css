@@ -1,0 +1,77 @@
+.loginForm {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.loginForm h1 {
+  margin: 10px 0 20px 0;
+  font-size: 3rem;
+  color: white;
+}
+
+.loginForm form .field {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 300px;
+}
+
+.loginForm form .field label {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.loginForm form .field input[type='text'], .loginForm form .field input[type='password'] {
+  height: 30px;
+  width: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+.loginForm form .field .visibility-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.loginForm form .field .visibility-container i {
+  position: absolute;
+  right: -10px;
+  top: 40px;
+  font-size: 18px;
+}
+
+.loginForm form input[type='submit'] {
+  width: 90px;
+  height: 45px;
+  display: block;
+  margin: 10px auto;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .loginForm form .field {
+    width: 200px;
+  }
+  .loginForm form .field input[type='text'], .loginForm form .field input[type='password'] {
+    width: 200px;
+  }
+  .loginForm form .field .visibility-container i {
+    right: -35px;
+    font-size: 16px;
+  }
+}
+/*# sourceMappingURL=login.css.map */

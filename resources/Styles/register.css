@@ -1,0 +1,91 @@
+.register {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.register h1 {
+  margin: 10px 0 20px 0;
+  font-size: 3rem;
+  color: white;
+}
+
+.register form {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.register form .field {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 300px;
+}
+
+.register form .field label {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.register form .field input[type='text'], .register form .field input[type='password'] {
+  height: 30px;
+  width: 250px;
+  display: block;
+  padding: 5px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+.register form .field .visibility-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.register form .field .visibility-container i {
+  position: absolute;
+  right: -10px;
+  top: 40px;
+  font-size: 18px;
+}
+
+.register form input[type='submit'] {
+  width: 90px;
+  height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px auto;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .register form h1 {
+    margin-top: 10px;
+  }
+  .register form .field {
+    width: 175px;
+  }
+  .register form .field input[type='text'], .register form .field input[type='password'] {
+    width: 175px;
+  }
+  .register form .field .visibility-container i {
+    right: -40px;
+  }
+}
+/*# sourceMappingURL=register.css.map */

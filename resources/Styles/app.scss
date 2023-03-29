@@ -1,0 +1,34 @@
+#app{
+  // padding: 0 100px;
+  // max-width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
+  min-height: 100vh;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.4)),url('../img/watching1.jpg');
+  background-size: cover;
+  background-position: 50% 30%;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+  button{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  input[type='submit']{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media(max-width: 768px){}
+@media(max-width: 576px){}
+@media(max-width: 320px){}
