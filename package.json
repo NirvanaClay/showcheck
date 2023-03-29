@@ -22,5 +22,8 @@
     },
     "dependencies": {
         "react-router-dom": "^6.9.0"
-    }
+    },
+    "engines": {
+        "node": "18.13.0"
+      }
 }
