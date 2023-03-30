@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log("In loginForm, loginStatus is:")
