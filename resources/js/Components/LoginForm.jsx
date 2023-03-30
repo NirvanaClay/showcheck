@@ -14,10 +14,16 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
   }, [userShows])
 
   function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift()
+    const cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return '';
   }
+  
   
   const loginUser = async (e) => {
     e.preventDefault();
