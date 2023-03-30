@@ -13,16 +13,16 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     console.log(userShows)
   }, [userShows])
 
-  function getCookie(name) {
-    const cookieArray = document.cookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-      let cookie = cookieArray[i].trim();
-      if (cookie.startsWith(`${name}=`)) {
-        return cookie.substring(name.length + 1);
-      }
-    }
-    return '';
-  }
+  // function getCookie(name) {
+  //   const cookieArray = document.cookie.split(';');
+  //   for (let i = 0; i < cookieArray.length; i++) {
+  //     let cookie = cookieArray[i].trim();
+  //     if (cookie.startsWith(`${name}=`)) {
+  //       return cookie.substring(name.length + 1);
+  //     }
+  //   }
+  //   return '';
+  // }
   
   
   const loginUser = async (e) => {
@@ -38,9 +38,11 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     }
     theAxios.get('sanctum/csrf-cookie')
       .then((res) => {
-        const xsrfToken = getCookie('XSRF-TOKEN')
-        console.log("xsrfToken being set after csrf-cookie route is:")
-        console.log(xsrfToken)
+        xsrfToken = res.headers['set-cookie']
+        .find(cookie => cookie.startsWith('XSRF-TOKEN'))
+        .split('=')[1]
+        .split(';')[0];
+        console.log("XSRF-TOKEN:", xsrfToken);
         theAxios.post('login', data, {
           headers: {
             'X-XSRF-TOKEN': xsrfToken
