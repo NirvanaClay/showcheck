@@ -13,16 +13,13 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     console.log(userShows)
   }, [userShows])
 
-  // function getCookie(name) {
-  //   const cookieArray = document.cookie.split(';');
-  //   for (let i = 0; i < cookieArray.length; i++) {
-  //     let cookie = cookieArray[i].trim();
-  //     if (cookie.startsWith(`${name}=`)) {
-  //       return cookie.substring(name.length + 1);
-  //     }
-  //   }
-  //   return '';
-  // }
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  
+  let xsrfToken;
   
   
   const loginUser = async (e) => {
@@ -38,10 +35,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     }
     theAxios.get('sanctum/csrf-cookie')
       .then((res) => {
-        xsrfToken = res.headers['set-cookie']
-        .find(cookie => cookie.startsWith('XSRF-TOKEN'))
-        .split('=')[1]
-        .split(';')[0];
+        xsrfToken = getCookie('XSRF-TOKEN');
         console.log("XSRF-TOKEN:", xsrfToken);
         theAxios.post('login', data, {
           headers: {
