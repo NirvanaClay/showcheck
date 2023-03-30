@@ -22,6 +22,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
   const loginUser = async (e) => {
     e.preventDefault();
     const theAxios = axios.create({
+      baseURL: process.env.NODE_ENV === 'production' ? 'https://showcheck.herokuapp.com' : '',
       // baseURL: 'http://localhost',
       // withCredentials: true
     });
