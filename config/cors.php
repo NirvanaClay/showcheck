@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://www.showcheck.herokuapp.com'],
+    'allowed_origins' => ['https://showcheck.herokuapp.com'],
 
     'allowed_origins_patterns' => [],
 
