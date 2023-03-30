@@ -25,14 +25,20 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
   }
 
   let xsrfToken
+
+  const theAxios = axios.create();
+
+  theAxios.defaults.xsrfCookieName = 'XSRF-TOKEN';
+  theAxios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
   
   const loginUser = async (e) => {
     e.preventDefault();
-    const theAxios = axios.create({
-      baseURL: process.env.NODE_ENV === 'production' ? 'https://showcheck.herokuapp.com' : '',
-      // baseURL: 'http://localhost',
-      // withCredentials: true
-    });
+    // const theAxios = axios.create({
+    //   defaults.xsrfCookieName = 'XSRF-TOKEN';
+    //   defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+    //   // baseURL: 'http://localhost',
+    //   // withCredentials: true
+    // });
     let data = {
       email: e.target[0].value,
       password: e.target[1].value
