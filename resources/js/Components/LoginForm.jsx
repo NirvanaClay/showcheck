@@ -17,7 +17,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     e.preventDefault();
     const theAxios = axios.create({
       // baseURL: 'http://localhost',
-      withCredentials: true
+      // withCredentials: true
     });
     let data = {
       email: e.target[0].value,
