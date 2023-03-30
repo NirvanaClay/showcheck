@@ -11,7 +11,7 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
       email: e.target[0].value,
       password: e.target[1].value
     }
-    await axios.post('/api/register', {
+    await axios.post('register', {
       email: e.target[0].value,
       password: e.target[1].value,
       password_confirmation: e.target[2].value

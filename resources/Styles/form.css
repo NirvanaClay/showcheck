@@ -26,6 +26,10 @@
   margin-bottom: 10px;
 }
 
+.form form .radio-buttons .radio-button {
+  padding: 0 5px;
+}
+
 .form form .selection_warning {
   color: #fbff00;
   font-size: 1.2rem;
@@ -48,6 +52,7 @@
   border: none;
   border-radius: 5px;
   font-size: 1.2rem;
+  color: black;
 }
 
 .form form button {
@@ -187,7 +192,20 @@
   transition: .5s ease-in-out;
 }
 
-.form .results-container .shows .result h2 {
+.form .results-container .shows .result .title-container {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.form .results-container .shows .result .title-container h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
@@ -195,6 +213,7 @@
 .form .results-container .shows .result img {
   width: 150px;
   height: 200px;
+  margin: 0 auto;
 }
 
 .form .results-container .shows .result h4 {

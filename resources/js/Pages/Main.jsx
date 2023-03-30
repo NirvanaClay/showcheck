@@ -8,6 +8,13 @@ import ReactDOM from 'react-dom'
 
 import Axios from 'axios'
 
+import disneyLogo from '../../img/disney-logo.jpg'
+import hboLogo from '../../img/hbo-logo.jpg'
+import huluLogo from '../../img/hulu-logo.jpg'
+import netflixLogo from '../../img/netflix-logo.jpg'
+import peacockLogo from '../../img/peacock-logo.jpg'
+import primeLogo from '../../img/prime-logo.jpg'
+
 import '../../Styles/reset.css'
 import '../../Styles/app.scss'
 import '../../Styles/form.scss'
@@ -329,27 +336,27 @@ const Main = () => {
                 console.log("There is a valid singleResponse, which is:")
                 console.log(singleResponse)
                 if(singleResponse == 'prime'){
-                  singleResponse = "../../../img/prime-logo.jpg"
+                  singleResponse = primeLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'netflix'){
-                  singleResponse = "../../../img/netflix-logo.jpg"
+                  singleResponse = netflisLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'hulu'){
-                  singleResponse = "../../../img/hulu-logo.jpg"
+                  singleResponse = huluLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'disney'){
-                  singleResponse = "../../../img/disney-logo.jpg"
+                  singleResponse = disneyLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'hbo'){
-                  singleResponse = "../../../img/hbo-logo.jpg"
+                  singleResponse = hboLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'peacock'){
-                  singleResponse = "../../../img/peacock-logo.jpg"
+                  singleResponse = peacockLogo
                   validResponses.push(singleResponse)
                 }
 

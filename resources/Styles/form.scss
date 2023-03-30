@@ -18,6 +18,9 @@
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
+      .radio-button{
+        padding: 0 5px;
+      }
     }
     .selection_warning{
       color: #fbff00;
@@ -39,6 +42,7 @@
       border: none;
       border-radius: 5px;
       font-size: 1.2rem;
+      color: black;
     }
     button{
       width: 80px;
@@ -138,13 +142,20 @@
         margin: 0 auto;
         text-align: center;
         transition: .5s ease-in-out;
-        h2{
-          font-size: 1.5rem;
-          margin-bottom: 10px;
+        .title-container{
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          h2{
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+          }
         }
         img{
           width: 150px;
           height: 200px;
+          margin: 0 auto;
         }
         h4{
           font-size: 1.3rem;

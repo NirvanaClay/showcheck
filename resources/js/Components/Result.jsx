@@ -86,7 +86,9 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
 
   return (
     <div id={id} className={`result ${selectedResult && 'single'}`}>
-      <h2 id={id}>{title}</h2>
+      <div className='title-container'>
+        <h2 id={id}>{title}</h2>
+      </div>
       <img id={id} src={image}></img>
       {streamingId == id &&
         <div className={`loading ${isLoading && 'visible'}`}>
