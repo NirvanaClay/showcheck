@@ -12,6 +12,12 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     console.log("and in loginForm, userShows are:")
     console.log(userShows)
   }, [userShows])
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
   
   const loginUser = async (e) => {
     e.preventDefault();
@@ -25,7 +31,12 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     }
     theAxios.get('sanctum/csrf-cookie')
       .then((res) => {
-        theAxios.post('login', data)
+        const xsrfToken = getCookie('XSRF-TOKEN');
+        theAxios.post('login', data, {
+          headers: {
+            'X-XSRF-TOKEN': xsrfToken
+          }
+        })
           .then((res) => {
             theAxios.get('api/userShows')
           })
