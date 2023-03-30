@@ -33,6 +33,8 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     theAxios.get('sanctum/csrf-cookie')
       .then((res) => {
         const xsrfToken = getCookie('XSRF-TOKEN')
+        console.log("xsrfToken being set after csrf-cookie route is:")
+        console.log(xsrfToken)
         theAxios.post('login', data, {
           headers: {
             'X-XSRF-TOKEN': xsrfToken
