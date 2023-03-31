@@ -30,7 +30,12 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
 
   theAxios.defaults.xsrfCookieName = 'XSRF-TOKEN';
   theAxios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
-  theAxios.withCredentials = true;
+  theAxios.defaults.withCredentials = true;
+
+  console.log("In loginForm, theAxios.defaults are:")
+  console.log(theAxios.defaults)
+
+
   
   const loginUser = async (e) => {
     e.preventDefault();
