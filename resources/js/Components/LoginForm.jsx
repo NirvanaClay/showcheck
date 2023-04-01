@@ -60,7 +60,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
         //   }
         })
           .then((res) => {
-            theAxios.get('api/userShows')
+            theAxios.get('api/userShows', { withCredentials: true })
           })
       // })
   //   const theAxios = axios.create({
