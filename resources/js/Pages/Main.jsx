@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 
 import Axios from 'axios'
 
-import disneyLogo from '../../img/disney-logo.jpg'
+import disneyLogo from '../../img/disney-logo.jpg';
 import hboLogo from '../../img/hbo-logo.jpg';
 import huluLogo from '../../img/hulu-logo.jpg'
 import netflixLogo from '../../img/netflix-logo.jpg'
