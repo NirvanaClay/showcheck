@@ -39,29 +39,22 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
   
   const loginUser = async (e) => {
     e.preventDefault();
-    // const theAxios = axios.create({
-    //   defaults.xsrfCookieName = 'XSRF-TOKEN';
-    //   defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
-    //   // baseURL: 'http://localhost',
-    //   // withCredentials: true
-    // });
     let data = {
       email: e.target[0].value,
       password: e.target[1].value
     }
-    theAxios.get('sanctum/csrf-cookie')
-      .then((res) => {
-        // xsrfToken = getCookie('XSRF-TOKEN');
-        // console.log('XSRF-TOKEN:', xsrfToken);
-        theAxios.post('login', data)
-        // theAxios.post('login', data, {
-        //   headers: {
-        //     'X-XSRF-TOKEN': xsrfToken
-        //   }
-        })
-          .then((res) => {
-            theAxios.get('api/userShows')
-          })
+    axios.post('login', data)
+    .then((e) => {
+      setUser(e.data)
+      setLoginStatus(true)
+      // setGuestExpenses([])
+      // setLoginError('')
+      navigate('/', { replace: true })
+    })
+    .catch((e) => {
+      console.log(e.response.data)
+      // setLoginError(e.response.data)
+    })
       // })
   //   const theAxios = axios.create({
   //     baseURL: 'http://localhost:8888',

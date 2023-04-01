@@ -37,8 +37,6 @@ Route::get(`/`, function () {
     // ]);
 });
 
-Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
-
 Route::post('/register', function(Request $request) {
     $request->validate([
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -74,6 +72,27 @@ Route::post('/login', function(Request $request) {
         'email' => 'The provided credentials do not match our records.',
     ]);
 });
+
+Route::get('/user', function (Request $request) {
+    if(Auth::check()){
+        $user = Auth::user();
+        return $user;
+    }
+    else{
+        return false;
+    }
+})->middleware('auth');
+
+Route::get('/userShows', function()
+{
+    $id = Auth::id();
+    $user = User::find($id);
+    if($user){
+        return $user->shows;
+    }
+    else{
+        return "There is not a user";
+}});
 
 
 // require __DIR__.'/auth.php';

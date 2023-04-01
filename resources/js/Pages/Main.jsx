@@ -65,30 +65,19 @@ const Main = () => {
 
   const [changedRating, setChangedRating] = useState(false)
 
-  // const token = document.getElementById('token');
-  // console.log("The token is:")
-  // console.log(token.content)
-
-  // let userCheck = document.getElementById('authenticated').value
-  // console.log("userCheck is:")
-  // console.log(userCheck)
-
-  // useEffect(() => {
-  //   axios.get('/checkAuth')
-  //   .then((res) => {
-  //     if(res.data != false){
-  //       setLoginStatus(true)
-  //       setUser(res.data)
-  //       console.log("In checkAuth effect, set user as:")
-  //       console.log(res.data)
-  //     }
-  //     else{
-  //       console.log("There is false on res.data")
-  //     }
-  //     // console.log("checkAuth res is:")
-  //     // console.log(res)
-  //   })
-  // }, [loginStatus])
+  useEffect(() => {
+    if (loginStatus) {
+      axios.get('user').then((e) => {
+        if (e.data) {
+          setUser(e.data);
+          setUser_id(e.data.id);
+        }
+      });
+      axios.get('userShows').then((e) => {
+        setUserExpenses([...e.data]);
+      });
+    }
+  }, [loginStatus]);
 
   useEffect(() => {
     console.log("Check auth status in app effect, with user of:.")
@@ -99,17 +88,6 @@ const Main = () => {
       setName(user.name)
       setEmail(user.email)
       setUserId(user.id)
-      //   const user = res.data
-      //   console.log("Which has res.data of:")
-      //   console.log(user)
-      //   console.log("There is a user, which is:")
-      //   console.log(user)
-        // setUser(user)
-        // setName(user.name)
-        // setEmail(user.email)
-        // setUserId(user.id)
-        // setLoginStatus(true)
-      // })
     }
     else{
       console.log("user == Guest")
