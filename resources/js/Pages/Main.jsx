@@ -78,7 +78,7 @@ const Main = () => {
         }
       });
       axios.get('userShows').then((e) => {
-        setUserExpenses([...e.data]);
+        setUserShows([...e.data]);
       });
     }
   }, [loginStatus]);
