@@ -51,17 +51,18 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     }
     theAxios.get('sanctum/csrf-cookie')
       .then((res) => {
-        xsrfToken = getCookie('XSRF-TOKEN');
-        console.log('XSRF-TOKEN:', xsrfToken);
-        theAxios.post('login', data, {
-          headers: {
-            'X-XSRF-TOKEN': xsrfToken
-          }
+        // xsrfToken = getCookie('XSRF-TOKEN');
+        // console.log('XSRF-TOKEN:', xsrfToken);
+        theAxios.post('login', data)
+        // theAxios.post('login', data, {
+        //   headers: {
+        //     'X-XSRF-TOKEN': xsrfToken
+        //   }
         })
           .then((res) => {
             theAxios.get('api/userShows')
           })
-      })
+      // })
   //   const theAxios = axios.create({
   //     baseURL: 'http://localhost:8888',
   //     // headers: {
