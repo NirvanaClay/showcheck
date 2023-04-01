@@ -55,6 +55,8 @@ const Main = () => {
   const [streamingServices, setStreamingServices] = useState([])
   const [streamingId, setStreamingId] = useState('')
 
+  const [userShows, setUserShows] = useState([])
+  const [showType, setShowType] = useState('')
   const [series, getSeries] = useState([])
   const [movies, getMovies] = useState([])
   
@@ -65,12 +67,14 @@ const Main = () => {
 
   const [changedRating, setChangedRating] = useState(false)
 
+  const noStreaming = "This show is not currently available through streaming."
+
   useEffect(() => {
     if (loginStatus) {
       axios.get('user').then((e) => {
         if (e.data) {
           setUser(e.data);
-          setUser_id(e.data.id);
+          setUserId(e.data.id);
         }
       });
       axios.get('userShows').then((e) => {
@@ -98,12 +102,6 @@ const Main = () => {
       setLoginStatus(false)
     }
   }, [user])
-
-  const noStreaming = "This show is not currently available through streaming."
-
-  const [showType, setShowType] = useState('')
-
-  const [userShows, setUserShows] = useState([])
 
   useEffect((e) => {
     const fetchShows = async () => {
