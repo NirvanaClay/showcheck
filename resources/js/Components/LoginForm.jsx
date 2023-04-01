@@ -53,7 +53,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
       .then((res) => {
         // xsrfToken = getCookie('XSRF-TOKEN');
         // console.log('XSRF-TOKEN:', xsrfToken);
-        theAxios.post('api/login', data)
+        theAxios.post('login', data)
         // theAxios.post('login', data, {
         //   headers: {
         //     'X-XSRF-TOKEN': xsrfToken
