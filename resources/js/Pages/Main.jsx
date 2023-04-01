@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-import Axios from 'axios'
+import axios from 'axios'
 
 import disneyLogo from '../../img/disney-logo.jpg';
 import hboLogo from '../../img/hbo-logo.jpg';
@@ -214,7 +214,7 @@ const Main = () => {
             console.log("Thinks there is more than 1 page.")
             for(let i=0; i < res.data.total_pages; i++){
               let page = i + 1
-              Axios.get(url, {
+              axios.get(url, {
                 params: {
                   country: 'us',
                   service: streamingService,
