@@ -12,6 +12,10 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
       password: e.target[1].value,
       password_confirmation: e.target[2].value
     })
+    .then((e) => {
+      setLoginStatus(true)
+      navigate('/', { replace: true })
+    })
   }
 
   useEffect(() => {

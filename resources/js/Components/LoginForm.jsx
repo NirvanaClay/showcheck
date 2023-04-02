@@ -17,10 +17,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     }
     axios.post('login', data)
     .then((e) => {
-      setUser(e.data)
       setLoginStatus(true)
-      // setGuestExpenses([])
-      // setLoginError('')
       navigate('/', { replace: true })
     })
     .catch((e) => {
