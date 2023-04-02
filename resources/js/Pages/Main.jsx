@@ -68,8 +68,6 @@ const Main = () => {
   useEffect(() => {
     if (loginStatus) {
       axios.get('user').then((e) => {
-        console.log("In Main effect, we get user, with e.data as:")
-        console.log(e.data)
         if (e.data) {
           setUser(e.data);
           setUserId(e.data.id);
