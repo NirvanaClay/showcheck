@@ -43,7 +43,6 @@ const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
   const [user, setUser] = useState();
-  const [name, setName] = useState('Guest');
   const [email, setEmail] = useState('')
   const [userId, setUserId] = useState(0)
   const [results, getResults] = useState([])
@@ -72,7 +71,6 @@ const Main = () => {
         if (e.data) {
           setUser(e.data);
           setUserId(e.data.id);
-          setName(user.name)
           setEmail(user.email)
           setUserId(user.id)
         }
@@ -82,7 +80,6 @@ const Main = () => {
       });
     }
     else{
-      setName('Guest')
       setEmail('')
       setUserId(0)
       // setLoginStatus(false)
@@ -110,7 +107,6 @@ const Main = () => {
       else{
         getSeries([])
         getMovies([])
-        setName('Guest')
         setEmail('')
         setUserId(0)
       }
@@ -316,7 +312,7 @@ const Main = () => {
 
   return (
     <Router>
-      <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setName={setName} setEmail={setEmail} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
+      <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setEmail={setEmail} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
       <Routes>
         <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} />} />
 
