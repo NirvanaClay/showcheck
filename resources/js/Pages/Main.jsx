@@ -76,11 +76,20 @@ const Main = () => {
         if (e.data) {
           setUser(e.data);
           setUserId(e.data.id);
+          setName(user.name)
+          setEmail(user.email)
+          setUserId(user.id)
         }
       });
       axios.get('userShows').then((e) => {
         setUserShows([...e.data]);
       });
+    }
+    else{
+      setName('Guest')
+      setEmail('')
+      setUserId(0)
+      // setLoginStatus(false)
     }
   }, [loginStatus]);
 
@@ -90,9 +99,7 @@ const Main = () => {
     if(user){
       console.log("user != 'Guest'")
       console.log("In app effect, there is a user.")
-      setName(user.name)
-      setEmail(user.email)
-      setUserId(user.id)
+
     }
     else{
       console.log("user == Guest")
@@ -164,11 +171,6 @@ const Main = () => {
       }
     }
   }
-
-  useEffect(() => {
-    console.log("streamingServices are:")
-    console.log(streamingServices)
-  }, [streamingServices])
 
   const checkStreaming = async (e) => {
     setStreamingServices([])
