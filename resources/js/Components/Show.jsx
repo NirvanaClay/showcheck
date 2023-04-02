@@ -131,19 +131,19 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
           <input type='hidden' className='rating' name='rating' value={stateRating} />
           <button type='submit'>
-            <i className="far fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={1}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={1}></i>
           </button>
           <button type='submit'>
-            <i className="far fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={2}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={2}></i>
           </button>
           <button type='submit'>
-            <i className="far fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={3}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={3}></i>
           </button>
           <button type='submit'>
-            <i className="far fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={4}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={4}></i>
           </button>
           <button type='submit'>
-            <i className="far fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={5}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={5}></i>
           </button>
         </form>
       </div>

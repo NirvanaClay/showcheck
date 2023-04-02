@@ -91,25 +91,25 @@ const Main = () => {
       setUserId(0)
       // setLoginStatus(false)
     }
-  }, [loginStatus]);
+  }, [loginStatus, changedRating]);
 
-  useEffect(() => {
-    console.log("Check auth status in app effect, with user of:.")
-    console.log(user)
-    if(user){
-      console.log("user != 'Guest'")
-      console.log("In app effect, there is a user.")
+  // useEffect(() => {
+  //   console.log("Check auth status in app effect, with user of:.")
+  //   console.log(user)
+  //   if(user){
+  //     console.log("user != 'Guest'")
+  //     console.log("In app effect, there is a user.")
 
-    }
-    else{
-      console.log("user == Guest")
-      console.log("There is not a user.")
-      setName('Guest')
-      setEmail('')
-      setUserId(0)
-      setLoginStatus(false)
-    }
-  }, [user])
+  //   }
+  //   else{
+  //     console.log("user == Guest")
+  //     console.log("There is not a user.")
+  //     setName('Guest')
+  //     setEmail('')
+  //     setUserId(0)
+  //     setLoginStatus(false)
+  //   }
+  // }, [user])
 
   // useEffect(() => {
   //   const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
@@ -143,7 +143,7 @@ const Main = () => {
         setName('Guest')
         setEmail('')
         setUserId(0)
-        setLoginStatus(false)
+        // setLoginStatus(false)
       }
     }
     fetchShows()

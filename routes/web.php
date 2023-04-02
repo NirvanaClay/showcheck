@@ -104,5 +104,14 @@ Route::put('/shows/{id}', 'App\Http\Controllers\ShowController@edit')->middlewar
 
 Route::delete('/shows/{id}', 'App\Http\Controllers\ShowController@destroy')->middleware(['auth.basic']);
 
+Route::get(`{any}`, function () {
+    return Inertia::render('Main');
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+});
 
 // require __DIR__.'/auth.php';
