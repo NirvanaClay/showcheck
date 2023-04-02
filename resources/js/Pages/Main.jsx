@@ -201,8 +201,6 @@ const Main = () => {
       // 'Access-Control-Allow-Origin':'*',
       // 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
     }
-
-    console.log("Running getStreamingResults")
     let promises = []
     for(let i=0; i < streamingServicesList.length; i++){
       let streamingService = streamingServicesList[i]
@@ -308,21 +306,12 @@ const Main = () => {
       let validResponses = []
       let finalArray
       let finalResults
-      console.log('FUCKING HELLO')
-      console.log("Setting isLoading to false.")
-      console.log("Before final loop/check, responses are:")
-      console.log(responses)
       setIsLoading(false)
       for(let response of responses){
         if(response){
-          if(response.length == 0){
-            console.log("Response is undefined.")
-          }
-          else{
+          if(response.length > 0){
             for(let singleResponse of response){
               if(singleResponse){
-                console.log("There is a valid singleResponse, which is:")
-                console.log(singleResponse)
                 if(singleResponse == 'prime'){
                   singleResponse = primeLogo
                   validResponses.push(singleResponse)
@@ -354,21 +343,13 @@ const Main = () => {
           }
         }
       }
-      console.log("validResponses are:")
-      console.log(validResponses)
       if(validResponses.length == 0){
         console.log("There are no validResponses")
         setStreamingServices([noStreaming])
       }
       else{
-        console.log("validResponses are:")
-        console.log(validResponses)
         finalArray = [].concat(...validResponses)
-        console.log("finalArray is:")
-        console.log(finalArray)
         finalResults = ([...new Set(finalArray)])
-        console.log("finalResults are:")
-        console.log(finalResults)
         setStreamingServices([...finalResults])
       }
     })

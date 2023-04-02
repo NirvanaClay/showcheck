@@ -79,9 +79,6 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
       }, 100);
       return () => clearInterval(interval);
     }
-    else{
-
-    }
   }, [spinnerDegree, isLoading])
 
   return (

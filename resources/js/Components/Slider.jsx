@@ -7,8 +7,6 @@ import Result from './Result'
 
 const Slider = ({ user, fetchResults, results, getResults, shows, series, getSeries, movies, getMovies, Link, checkStreaming, sliderPosition, setSliderPosition, streamingServices, streamingId, noStreaming, showType, showRatings, setShowRatings, isLoading, spinnerDegree, setSpinnerDegree, selectedResult, setSelectedResult, resizeResetSlider, changedRating, setChangedRating }) => {
 
-  console.log("Slider.jsx is running.")
-
   const [leftArrowVisibility, setLeftArrowVisibility] = useState(false)
   const [rightArrowVisibility, setRightArrowVisibility] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -76,12 +74,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
         setTotalPages(Math.floor(shows.length / showsPerPage))
       }
       setCurrentPage((sliderPosition / -sliderWidth) + 1)
-      console.log("totalPages is:")
-      console.log(totalPages)
-      console.log("currentPage is:")
-      console.log(currentPage)    
-      console.log("sliderPosition is:")
-      console.log(sliderPosition)
       if(currentPage < totalPages){
         console.log("Current page is less than total pages.")
         setRightArrowVisibility(true)
@@ -98,8 +90,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
       }
     }
     if(results){
-      console.log("results.length is:")
-      console.log(results.length)
       const showLength = results.length
       if(showLength % showsPerPage != 0){
         setTotalPages(Math.floor(results.length / showsPerPage) + 1)
@@ -108,12 +98,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
         setTotalPages(Math.floor(results.length / showsPerPage))
       }
       setCurrentPage((sliderPosition / -sliderWidth) + 1)
-      console.log("totalPages is:")
-      console.log(totalPages)
-      console.log("currentPage is:")
-      console.log(currentPage)    
-      console.log("sliderPosition is:")
-      console.log(sliderPosition)
       if(currentPage < totalPages){
         setRightArrowVisibility(true)
       }
@@ -142,9 +126,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
   }
 
   const moveSliderRight = (e) => {
-    console.log("Moving slider right.")
-    console.log("With a sliderWidth of:")
-    console.log(sliderWidth)
     setSliderPosition(sliderPosition - sliderWidth)
   }
   let seriesSliderPosition = {

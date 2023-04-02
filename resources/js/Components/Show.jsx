@@ -3,26 +3,19 @@ import axios from '../axiosConfig'
 
 
 const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating }) => {
-  console.log("In Show.jsx, checkStreaming is:")
-  console.log(checkStreaming)
-  
   const [previewRating, setPreviewRating] = useState(rating)
   const [stateRating, setStateRating] = useState([rating || 0])
 
-  // useEffect(() => {
-  //   console.log("In show effect, stateRating is:")
-  //   console.log(stateRating)
-  // }, [stateRating])
-
-  // useEffect(() => {
-  //   console.log("In show effect, changedRating is:")
-  //   console.log(changedRating)
-  // }, [changedRating])
-
-  // useEffect(() => {
-  //   console.log("In show effect, stateRating is:")
-  //   console.log(stateRating)
-  // }, [stateRating])
+  useEffect(() => {
+    if(isLoading){
+      const interval = setInterval(() => {
+        setSpinnerDegree(spinnerDegree + 90)
+        console.log("set spinner degree, which should be:")
+        console.log(spinnerDegree + 90)
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [spinnerDegree, isLoading])
 
   useEffect(() =>{
     const checkRating = (e) => {
@@ -91,28 +84,15 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
     }
   }
 
-  // useEffect(() => {
-  //   if(isLoading){
-  //     console.log("ISLOADING IS TRUE.")
-  //     const interval = setInterval(() => {
-  //       setSpinnerDegree(spinnerDegree + 90)
-  //       console.log("set spinner degree, which should be:")
-  //       console.log(spinnerDegree + 90)
-  //     }, 100);
-  //     return () => clearInterval(interval);
-  //   }
-  //   else{
-  //     console.log("ISLOADING IS FALSE.")
-  //   }
-  // }, [spinnerDegree, isLoading]);
-
   const setRatingValue = (e) => {
     setStateRating(e.target.getAttribute('value'))
   }
 
   return (
     <div className='show'>
-      <h3>{title}</h3>
+      <div className='title-container'>
+        <h3>{title}</h3>
+      </div>
       <img src={image} />
       {streamingId == imdb_id &&
         <div className={`loading ${isLoading && 'visible'}`}>
