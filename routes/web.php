@@ -108,6 +108,13 @@ Route::put('/shows/{id}', 'App\Http\Controllers\ShowController@edit')->middlewar
 
 Route::delete('/shows/{id}', 'App\Http\Controllers\ShowController@destroy')->middleware(['auth.basic']);
 
+Route::post('/logout', function(Request $request){
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    // return redirect('/');
+});
+
 Route::get('{any}', function () {
     return Inertia::render('Main', [
         // 'canLogin' => Route::has('login'),

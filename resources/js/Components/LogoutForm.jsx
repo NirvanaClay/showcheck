@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axiosConfig";
 
 import { useNavigate } from 'react-router-dom'
 
@@ -9,6 +9,7 @@ const LogoutForm = ({ setEmail, setUser, setLoginStatus, resetSlider }) => {
     e.preventDefault()
     axios.post('/logout')
     setUser()
+    setLoginStatus(false)
     navigate('/')
   }
   return (
