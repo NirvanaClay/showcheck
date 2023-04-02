@@ -13,25 +13,16 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
       imdb_id: id,
       show_type: showType
     } 
-    console.log("Data is:")
-    console.log(data)
     await axios.post('/shows', data)
     .then(function(response){
-      console.log("response from .then of myShow is:")
-      console.log(response)
       if(showType == 'series'){
-        console.log("Knows showType is series.")
         const seriesCheck = series.some(show => {
           return show.id == response.data
-          // console.log("Inside of some function, movie.id, which we're comparing to response.data, is:")
-          // console.log(movie.id)
         })
         if(seriesCheck){
-          console.log("There are duplicates.")
           return
         }
         else{
-          console.log("There are not duplicates.")
           getSeries([...series, {
             title: title,
             image_url: image,
@@ -42,20 +33,13 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
         }
       }
       else if(showType == 'movie'){
-        console.log("Knows showType is movie")
-        console.log("response.data is:")
-        console.log(response.data)
         const moviesCheck = movies.some(movie => {
           return movie.id == response.data
-          // console.log("Inside of some function, movie.id, which we're comparing to response.data, is:")
-          // console.log(movie.id)
         })
         if(moviesCheck){
-          console.log("There are duplicates.")
           return
         }
         else{
-          console.log("There are not duplicates.")
           getMovies([...movies, {
             title: title,
             image_url: image,
@@ -74,8 +58,6 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
     if(isLoading){
       const interval = setInterval(() => {
         setSpinnerDegree(spinnerDegree + 90)
-        console.log("set spinner degree, which should be:")
-        console.log(spinnerDegree + 90)
       }, 100);
       return () => clearInterval(interval);
     }

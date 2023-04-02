@@ -21,7 +21,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
 
   useEffect(() => {
     function handleResize() {
-      console.log("Running resize screen effect.")
       resizeResetSlider()
       setDimensions({
         height: window.innerHeight,
@@ -75,11 +74,9 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
       }
       setCurrentPage((sliderPosition / -sliderWidth) + 1)
       if(currentPage < totalPages){
-        console.log("Current page is less than total pages.")
         setRightArrowVisibility(true)
       }
       else{
-        console.log("Current page is not less than total pages.")
         setRightArrowVisibility(false)
       }
       if(currentPage > 1){

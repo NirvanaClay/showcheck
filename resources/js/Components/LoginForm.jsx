@@ -3,9 +3,6 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 import axios from '../axiosConfig'
 
-console.log("In loginForm, axios.defaults are:")
-console.log(axios.defaults)
-
 const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows }) => {
   const navigate = useNavigate()
   
@@ -22,7 +19,6 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     })
     .catch((e) => {
       console.log(e.response.data)
-      // setLoginError(e.response.data)
     })
   }
   return(

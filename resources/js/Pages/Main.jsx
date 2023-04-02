@@ -96,57 +96,23 @@ const Main = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log("Check auth status in app effect, with user of:.")
-  //   console.log(user)
-  //   if(user){
-  //     console.log("user != 'Guest'")
-  //     console.log("In app effect, there is a user.")
-
-  //   }
-  //   else{
-  //     console.log("user == Guest")
-  //     console.log("There is not a user.")
-  //     setName('Guest')
-  //     setEmail('')
-  //     setUserId(0)
-  //     setLoginStatus(false)
-  //   }
-  // }, [user])
-
-  // useEffect(() => {
-  //   const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-  //   axios.defaults.headers.common['XSRF-TOKEN'] = csrfToken;
-  // }, []);
-
   useEffect((e) => {
     const fetchShows = async () => {
       if(user){
-        console.log("When fetching shows, userShows are:")
-        console.log(userShows)
-        // const userShows = user[1]
-        // console.log("userShows are:")
-        // console.log(userShows)
         let userSeries = userShows.filter(show => show.show_type == 'series')
         let userMovies = userShows.filter(show => show.show_type == 'movie')
         let orderedUserSeries = userSeries.sort((a, b) => a.title.localeCompare(b.title))
         let orderedUserMovies = userMovies.sort((a, b) => a.title.localeCompare(b.title))
-        console.log("orderedUserSeries is:")
-        console.log(orderedUserSeries)
-        console.log("orderedUserMovies are:")
-        console.log(orderedUserMovies)
         getSeries([...orderedUserSeries])
         getMovies([...orderedUserMovies])
       }
 
       else{
-        console.log("On home effect there is no user.")
         getSeries([])
         getMovies([])
         setName('Guest')
         setEmail('')
         setUserId(0)
-        // setLoginStatus(false)
       }
     }
     fetchShows()
@@ -156,17 +122,10 @@ const Main = () => {
     e.preventDefault()
     if(showType){
       setFailedSearch(false)
-      // let theShowType = document.querySelector('input[name="show-type"]:checked').value
-      // theShowType = theShowType.toLowerCase()
-      // console.log("theShowType is:")
-      // console.log(theShowType)
-      // setShowType(theShowType)
       const searchString = `https://imdb-api.com/en/API/Search${showType}/k_j0x59844/${e.target[2].value}`
       const res = await fetch(searchString)
       const data = await res.json()
       if(data.results){
-        console.log("In fetchResults, data.results is:")
-        console.log(data.results)
         getResults(data.results)
       }
       else{
@@ -176,7 +135,6 @@ const Main = () => {
   }
 
   const checkStreaming = async (e) => {
-    console.log("Running checkStreaming.")
     setStreamingServices([])
     setIsLoading(true)
     const show_type = e.target.getAttribute('show_type')
@@ -218,10 +176,7 @@ const Main = () => {
           params: params,
           headers: headers
         }).then(res =>{
-          console.log("Initial res is:")
-          console.log(res)
           if(res.data.total_pages > 1){
-            console.log("Thinks there is more than 1 page.")
             for(let i=0; i < res.data.total_pages; i++){
               let page = i + 1
               axios.get(url, {
@@ -237,15 +192,10 @@ const Main = () => {
                 },
                 headers: headers
               }).then(res =>{
-                console.log("This is in then statement with page number of:")
-                console.log(page)
-                console.log("With results of:")
-                console.log(res.data.results)
                 if(res.data.results.length > 0){
                   let usableResults
                   for(let result of res.data.results){
                     if(result.imdbID == imdb_id){
-                      console.log("Found matching show.")
                       showToCheck = result
                     }
                     if(showToCheck !== null){
@@ -253,8 +203,6 @@ const Main = () => {
                         results.push(key)
                       }
                       results = ([...new Set(results)])
-                      console.log("About to resolve1 with results of:")
-                      console.log(results) 
                       break                     
                     }
                   }
@@ -265,7 +213,6 @@ const Main = () => {
                 }
               })
               .catch((e) => {
-                console.log("Catching1, with e:")
                 console.log(e)
               })
             }
@@ -275,15 +222,12 @@ const Main = () => {
               let usableResults
               for(let result of res.data.results){
                 if(result.imdbID == imdb_id){
-                  console.log("Found match for show.")
                   showToCheck = result
                 }
                 if(showToCheck !== null){
                   for(let key of Object.keys(showToCheck.streamingInfo)){
                     results.push(key)
                   }
-                  console.log("About to resolve2 with results of:")
-                  console.log(results)
                   results = ([...new Set(results)])
                   break
                 }
@@ -291,12 +235,10 @@ const Main = () => {
               return resolve(results)
             }
             else{
-              console.log("Running resolve with no results.")
               resolve()
             }
           }
         }).catch(() => {
-          console.log("Catching2, with e:")
           console.log(e)
         })
       }))
@@ -344,7 +286,6 @@ const Main = () => {
         }
       }
       if(validResponses.length == 0){
-        console.log("There are no validResponses")
         setStreamingServices([noStreaming])
       }
       else{
@@ -358,7 +299,6 @@ const Main = () => {
   const [sliderPosition, setSliderPosition] = useState(0)
 
   const resetSlider = () => {
-    console.log("Running resetSlider, so should be resetting results.")
     setSliderPosition(0)
     getResults([])
     setStreamingServices([])

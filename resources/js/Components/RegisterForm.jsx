@@ -18,11 +18,6 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
     })
   }
 
-  useEffect(() => {
-    console.log("passwordVisibility is:")
-    console.log(passwordVisibility)
-  }, [passwordVisibility])
-
   return (
     <div className='register'>
       <h1>Register</h1>
