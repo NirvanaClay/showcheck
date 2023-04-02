@@ -76,6 +76,10 @@ Route::post('/login', function(Request $request) {
     ]);
 });
 
+Route::get('/checkLogin', function() {
+    return Auth::check();
+});
+
 Route::get('/user', function (Request $request) {
     if(Auth::check()){
         $user = Auth::user();
@@ -104,14 +108,13 @@ Route::put('/shows/{id}', 'App\Http\Controllers\ShowController@edit')->middlewar
 
 Route::delete('/shows/{id}', 'App\Http\Controllers\ShowController@destroy')->middleware(['auth.basic']);
 
-Route::get(`{any}`, function () {
-    return Inertia::render('Main');
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
+Route::get('{any}', function () {
+    return Inertia::render('Main', [
+        // 'canLogin' => Route::has('login'),
+        // 'canRegister' => Route::has('register'),
+        // 'laravelVersion' => Application::VERSION,
+        // 'phpVersion' => PHP_VERSION,
+    ]);
 });
 
 // require __DIR__.'/auth.php';

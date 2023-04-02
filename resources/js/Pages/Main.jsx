@@ -40,9 +40,6 @@ import Example from '../Components/Example.jsx'
 
 // import bootstrap from '../bootstrap';
 
-console.log("Running Main.jsx, where axios.defaults are:")
-console.log(axios.defaults)
-
 const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
@@ -92,6 +89,13 @@ const Main = () => {
       // setLoginStatus(false)
     }
   }, [loginStatus, changedRating]);
+
+  useEffect(() => {
+    axios.get('checkLogin').then((e) => {
+      const isLoggedIn = e.data;
+      setLoginStatus(isLoggedIn);
+    });
+  }, []);
 
   // useEffect(() => {
   //   console.log("Check auth status in app effect, with user of:.")
