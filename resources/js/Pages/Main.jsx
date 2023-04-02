@@ -39,7 +39,6 @@ import Example from '../Components/Example.jsx'
 // import reportWebVitals from '../reportWebVitals';
 
 // import bootstrap from '../bootstrap';
-
 const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
@@ -177,6 +176,7 @@ const Main = () => {
   }
 
   const checkStreaming = async (e) => {
+    console.log("Running checkStreaming.")
     setStreamingServices([])
     setIsLoading(true)
     const show_type = e.target.getAttribute('show_type')
@@ -216,7 +216,7 @@ const Main = () => {
           language: 'en',
           keyword: `${title}`
         }
-        Axios.get(url, {
+        axios.get(url, {
           params: params,
           headers: headers
         }).then(res =>{

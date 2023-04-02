@@ -7,7 +7,7 @@ import Result from './Result'
 
 const Slider = ({ user, fetchResults, results, getResults, shows, series, getSeries, movies, getMovies, Link, checkStreaming, sliderPosition, setSliderPosition, streamingServices, streamingId, noStreaming, showType, showRatings, setShowRatings, isLoading, spinnerDegree, setSpinnerDegree, selectedResult, setSelectedResult, resizeResetSlider, changedRating, setChangedRating }) => {
 
-  console.log("Running Slider component.")
+  console.log("Slider.jsx is running.")
 
   const [leftArrowVisibility, setLeftArrowVisibility] = useState(false)
   const [rightArrowVisibility, setRightArrowVisibility] = useState(false)
@@ -47,39 +47,27 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
   if(large.matches && !medium.matches && !small.matches && !xSmall.matches){
     sliderWidth = 750
     showsPerPage = 3
-    console.log("large matches, with a sliderWidth of:")
-    console.log(sliderWidth)
   }
   else if (medium.matches && !small.matches && !xSmall.matches){
     sliderWidth=600
     showsPerPage = 3
-    console.log("medium matches, with a sliderWidth of:")
-    console.log(sliderWidth)
   } 
   else if(small.matches && !xSmall.matches){
     sliderWidth=320;
     showsPerPage = 2
-    console.log("small matches, with a sliderWidth of:")
-    console.log(sliderWidth)
   } 
   else if(xSmall.matches){
     sliderWidth=240; 
     showsPerPage = 2
-    console.log("xSmall matches, with a sliderWidth of:")
-    console.log(sliderWidth)
   }  
   else {
     sliderWidth=900;
     showsPerPage = 4
-    console.log("Desktop matches, with a sliderWidth of:")
-    console.log(sliderWidth)
   }
 
   useEffect(() => {
     if(shows){
       shows.sort((a, b) => a.title.localeCompare(b.title))
-      console.log("shows.length is:")
-      console.log(shows.length)
       const showLength = shows.length
       if(showLength % showsPerPage != 0){
         setTotalPages(Math.floor(shows.length / showsPerPage) + 1)
@@ -168,11 +156,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
     setSelectedResult(true)
     getResults(results.filter((result) => result.id == e.target.id))
   }
-
-  useEffect(() => {
-    console.log("in Slider effect, results are:")
-    console.log(results)
-  }, [results])
 
   return (
     <div className='slider-container'>

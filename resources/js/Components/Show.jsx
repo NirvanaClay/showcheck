@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from '../axiosConfig'
 
-const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating }) => {
 
+const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating }) => {
+  console.log("In Show.jsx, checkStreaming is:")
+  console.log(checkStreaming)
+  
   const [previewRating, setPreviewRating] = useState(rating)
   const [stateRating, setStateRating] = useState([rating || 0])
 

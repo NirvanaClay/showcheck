@@ -7,9 +7,6 @@ import Slider from './Slider'
 
 const Form = ({ user, Link, results, getResults, fetchResults, streamingServices, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider }) => {
 
-  console.log("In Form component, Link is:")
-  console.log(Link)
-
   const [selectedResult, setSelectedResult] = useState(false)
 
   const addShowType = (e) => {
