@@ -97,5 +97,12 @@ Route::get('/userShows', function()
         return "There is not a user";
 }});
 
+Route::post('/shows', 'App\Http\Controllers\ShowController@add')->middleware(['auth.basic']);
+;
+
+Route::put('/shows/{id}', 'App\Http\Controllers\ShowController@edit')->middleware(['auth.basic']);
+
+Route::delete('/shows/{id}', 'App\Http\Controllers\ShowController@destroy')->middleware(['auth.basic']);
+
 
 // require __DIR__.'/auth.php';
