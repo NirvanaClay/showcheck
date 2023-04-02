@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Axios from 'axios'
+import Axios from '../axiosConfig'
 
 import Form from "../Components/Form"
 import StreamService from '../Components/StreamService'
@@ -15,7 +15,7 @@ import ShowGuest from '../Components/ShowGuest'
 import RegisterForm from '../Components/RegisterForm'
 import Greeting from '../Components/Greeting'
 
-import axios from 'axios';
+import axios from '../axiosConfig';
 
 const Home = ({ user, streamingServices, fetchResults, results, getResults, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider }) => {
 

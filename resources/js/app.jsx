@@ -5,11 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
-axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
-axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
+import axios from './axiosConfig';
 
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'LaravelRRR'

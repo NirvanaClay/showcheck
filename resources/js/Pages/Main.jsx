@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-import axios from 'axios'
+import axios from '../axiosConfig'
 
 import disneyLogo from '../../img/disney-logo.jpg';
 import hboLogo from '../../img/hbo-logo.jpg';
@@ -40,7 +40,8 @@ import Example from '../Components/Example.jsx'
 
 // import bootstrap from '../bootstrap';
 
-console.log("Running Main.jsx")
+console.log("Running Main.jsx, where axios.defaults are:")
+console.log(axios.defaults)
 
 const Main = () => {
 
@@ -102,6 +103,11 @@ const Main = () => {
       setLoginStatus(false)
     }
   }, [user])
+
+  // useEffect(() => {
+  //   const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+  //   axios.defaults.headers.common['XSRF-TOKEN'] = csrfToken;
+  // }, []);
 
   useEffect((e) => {
     const fetchShows = async () => {
@@ -316,7 +322,7 @@ const Main = () => {
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'netflix'){
-                  singleResponse = netflisLogo
+                  singleResponse = netflixLogo
                   validResponses.push(singleResponse)
                 }
                 else if(singleResponse == 'hulu'){
@@ -402,49 +408,9 @@ const Main = () => {
 
 export default Main
 
-// if (document.getElementById('root')) {
-//   console.log("Found element with Id of root.")
-//   ReactDOM.render(<Main />, document.getElementById('root'));
-// }
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
 
 
 
-
-
-
-
-
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import { BrowserRouter, createBrowserRouter, RouterProvider, Routes, Route } from 'react-router-dom';
-// import Home from './Home';
-// import Header from '../Components/Header'
-// import RegisterForm from '../Components/RegisterForm';
-// import LoginForm from '../Components/LoginForm';
-
-// import reportWebVitals from '../reportWebVitals';
-
-// const root = document.getElementById("app")
-
-// console.log("Running index.jsx")
-
-// ReactDOM.createRoot(root).render(
-//   <React.StrictMode>
-//     <BrowserRouter>
-//       <Header />
-//       <Routes>
-//         <Route exact path="/" element={<Home />} />
-//         <Route path="/register" element={<RegisterForm />} />
-//         <Route path="/login" element={<LoginForm />} />
-//       </Routes>
-//     </BrowserRouter>
-//   </React.StrictMode>,
-// );
 
 // // If you want to start measuring performance in your app, pass a function
 // // to log results (for example: reportWebVitals(console.log))

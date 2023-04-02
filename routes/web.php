@@ -51,7 +51,8 @@ Route::post('/register', function(Request $request) {
     event(new Registered($user));
 
     Auth::login($user);
-    return $user;
+    $csrfToken = csrf_token();
+    return $csrfToken;
     // return "Testing register route.";
 });
 
@@ -65,7 +66,9 @@ Route::post('/login', function(Request $request) {
         $request->session()->regenerate();
         $id = Auth::id();
         $user = User::find($id);
-        return $user;
+        Auth::login($user);
+        $csrfToken = csrf_token();
+        return $csrfToken;
     }
 
     return back()->withErrors([

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import SeriesList from './SeriesList';
-import axios from 'axios'
+import axios from '../axiosConfig'
 
 const Result = ({ title, image, id, user, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree }) => {
 
