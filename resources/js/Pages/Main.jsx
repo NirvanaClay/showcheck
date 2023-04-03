@@ -68,11 +68,12 @@ const Main = () => {
   useEffect(() => {
     if (loginStatus) {
       axios.get('user').then((e) => {
-        if (e.data) {
-          setUser(e.data);
-          setUserId(e.data.id);
-          setEmail(e.data.email)
-          setUserId(e.data.id)
+        let userInfo = e.data
+        if (userInfo) {
+          setUser(userInfo);
+          setUserId(userInfo.id);
+          setEmail(userInfo.email)
+          setUserId(userInfo.id)
         }
       });
       axios.get('userShows').then((e) => {
@@ -113,6 +114,11 @@ const Main = () => {
     }
     fetchShows()
   }, [user, changedRating, userShows])
+
+  useEffect(() => {
+    console.log("Series =")
+    console.log(series)
+  }, [series])
 
   const fetchResults = async (e) => {
     e.preventDefault()
