@@ -10,7 +10,7 @@ const Form = ({ user, Link, results, getResults, fetchResults, streamingServices
   const [selectedResult, setSelectedResult] = useState(false)
 
   const addShowType = (e) => {
-    const theShowType = (e.target.value).toLowerCase();
+    const theShowType = (e.target.value).toLowerCase()
     setFailedSearch(false)
     setShowType(theShowType)
   }
