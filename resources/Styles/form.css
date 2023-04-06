@@ -30,6 +30,10 @@
   padding: 0 5px;
 }
 
+.form form .radio-buttons .radio-button input {
+  margin: 0 3px;
+}
+
 .form form .selection_warning {
   color: #fbff00;
   font-size: 1.2rem;
@@ -249,6 +253,7 @@
 
 .form .results-container .shows .result .loading {
   display: none;
+  margin-top: 10px;
 }
 
 .form .results-container .shows .result .loading i {

@@ -38,6 +38,7 @@
   border: none;
   border-radius: 5px;
   font-size: 1.1rem;
+  color: black;
 }
 
 .register form .field .visibility-container {

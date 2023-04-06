@@ -115,7 +115,7 @@
           margin: 0 auto 10px auto;
         }
         .stars-container{
-          width: 150px;
+          // width: 150px;
           margin: 10px auto;
           display: flex;
           justify-content: center;
@@ -239,8 +239,10 @@
             width: 160px;
           }
           .stars-container{
-            .fa-star{
-              font-size: 1.3rem;
+            form{
+              .fa-star{
+                font-size: 1.3rem;
+              }
             }
           }
         }
@@ -267,12 +269,6 @@
           }
           p{
             width: 120px;
-          }
-          .stars-container{
-            width: 110px;
-            .fa-star{
-              font-size: 1.1rem;
-            }
           }
         }
       }
