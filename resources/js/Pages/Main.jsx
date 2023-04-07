@@ -59,11 +59,28 @@ const Main = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [spinnerDegree, setSpinnerDegree] = useState(0)
 
+  const [resultsLoading, setResultsLoading] = useState(false)
+  const [resultsSpinnerDegree, setResultsSpinnerDegree] = useState(0)
+
   const [failedSearch, setFailedSearch] = useState(false)
 
   const [changedRating, setChangedRating] = useState(false)
 
   const noStreaming = "This show is not currently available through streaming."
+
+  const useSpinner = (loading, spinnerDegree, setSpinnerDegree) => {
+  useEffect(() => {
+    if (loading) {
+      const interval = setInterval(() => {
+        setSpinnerDegree(spinnerDegree + 90);
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [spinnerDegree, loading]);
+};
+
+useSpinner(isLoading, spinnerDegree, setSpinnerDegree);
+useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   useEffect(() => {
     if (loginStatus) {
@@ -115,20 +132,17 @@ const Main = () => {
     fetchShows()
   }, [user, changedRating, userShows])
 
-  useEffect(() => {
-    console.log("Series =")
-    console.log(series)
-  }, [series])
-
   const fetchResults = async (e) => {
     e.preventDefault()
     if(showType){
+      setResultsLoading(true)
       setFailedSearch(false)
       const searchString = `https://imdb-api.com/en/API/Search${showType}/k_j0x59844/${e.target[2].value}`
       const res = await fetch(searchString)
       const data = await res.json()
       if(data.results){
         getResults(data.results)
+        setResultsLoading(false)
       }
       else{
         setFailedSearch(true)
@@ -320,7 +334,7 @@ const Main = () => {
     <Router>
       <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setEmail={setEmail} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
       <Routes>
-        <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} />} />
+        <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} resultsLoading={resultsLoading} resultsSpinnerDegree={resultsSpinnerDegree} />} />
 
         <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 

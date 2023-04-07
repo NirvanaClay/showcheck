@@ -85,6 +85,18 @@
       }
     }
   }
+  .loading{
+    display: none;
+    margin-top: 30px;
+    i{
+      font-size: 60px;
+      transition: 1s ease-in-out;
+    }
+  }
+  .visible{
+    display: flex;
+    justify-content: center;
+  }
   .results-container{
     width: 900px;
     margin: 0 auto;

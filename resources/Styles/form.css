@@ -109,6 +109,26 @@
   transition: 1s ease-in-out;
 }
 
+.form .loading {
+  display: none;
+  margin-top: 30px;
+}
+
+.form .loading i {
+  font-size: 60px;
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
+}
+
+.form .visible {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .form .results-container {
   width: 900px;
   margin: 0 auto;

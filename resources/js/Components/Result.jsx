@@ -54,15 +54,6 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
     })
   }
 
-  useEffect(() => {
-    if(isLoading){
-      const interval = setInterval(() => {
-        setSpinnerDegree(spinnerDegree + 90)
-      }, 100);
-      return () => clearInterval(interval);
-    }
-  }, [spinnerDegree, isLoading])
-
   return (
     <div id={id} className={`result ${selectedResult && 'single'}`}>
       <div className='title-container'>

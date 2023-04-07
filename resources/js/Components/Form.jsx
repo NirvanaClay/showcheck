@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Result from './Result'
 import Slider from './Slider'
 
-const Form = ({ user, Link, results, getResults, fetchResults, streamingServices, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider }) => {
+const Form = ({ user, Link, results, getResults, fetchResults, streamingServices, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider, resultsLoading, resultsSpinnerDegree }) => {
 
   const [selectedResult, setSelectedResult] = useState(false)
 
@@ -46,6 +46,9 @@ const Form = ({ user, Link, results, getResults, fetchResults, streamingServices
         }
         <p className='streaming-list'>*We search Netflix, Hulu, Amazon Prime, HBO, Disney+, and Peacock.</p>
       </form>
+      <div className={`loading ${resultsLoading && 'visible'}`}>
+        <i className="fas fa-spinner" style={{transform: `rotate(${resultsSpinnerDegree}deg)`}}></i>
+      </div>
       <div className='results-container'>
           <Slider user={user} results={results} getResults={getResults} fetchResults={fetchResults} Link={Link} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} checkStreaming={checkStreaming} streamingServices={streamingServices} showType={showType} streamingId={streamingId} noStreaming={noStreaming} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} selectedResult={selectedResult} setSelectedResult={setSelectedResult} resizeResetSlider={resizeResetSlider} /> 
       </div>
