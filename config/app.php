@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'LaravelTEST'),
+    'name' => env('APP_NAME', 'Showcheck'),
 
     /*
     |--------------------------------------------------------------------------
