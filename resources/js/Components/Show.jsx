@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react'
 import axios from '../axiosConfig'
 
 
-const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating }) => {
+const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle }) => {
+
+  console.log("In Show.jsx, truncateTitle is:")
+  console.log(truncateTitle)
+  
+  const truncatedTitle = truncateTitle(title, 30)
+  
   const [previewRating, setPreviewRating] = useState(rating)
   const [stateRating, setStateRating] = useState([rating || 0])
 
@@ -89,7 +95,8 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
   return (
     <div className='show'>
       <div className='title-container'>
-        <h3>{title}</h3>
+        <h3>{truncatedTitle}</h3>
+        {/* <h3>{title}</h3> */}
       </div>
       <img src={image} />
       {streamingId == imdb_id &&

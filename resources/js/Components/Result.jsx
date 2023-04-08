@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react'
 import SeriesList from './SeriesList';
 import axios from '../axiosConfig'
 
-const Result = ({ title, image, id, user, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree }) => {
+const Result = ({ title, image, id, user, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle }) => {
+
+  const truncatedTitle = truncateTitle(title, 30)
+
+  console.log("In Result.jsx, truncateTitle is:")
+  console.log(truncateTitle)
 
   const myShow = async (e) => {
     e.preventDefault();
@@ -57,7 +62,7 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
   return (
     <div id={id} className={`result ${selectedResult && 'single'}`}>
       <div className='title-container'>
-        <h2 id={id}>{title}</h2>
+        <h2 id={id}>{truncatedTitle}</h2>
       </div>
       <img id={id} src={image}></img>
       {streamingId == id &&
