@@ -7,9 +7,6 @@ import Result from './Result'
 
 const Slider = ({ user, fetchResults, results, getResults, shows, series, getSeries, movies, getMovies, Link, checkStreaming, sliderPosition, setSliderPosition, streamingServices, streamingId, noStreaming, showType, showRatings, setShowRatings, isLoading, spinnerDegree, setSpinnerDegree, selectedResult, setSelectedResult, resizeResetSlider, changedRating, setChangedRating, truncateTitle }) => {
 
-  console.log("In Slider.jsx, truncateTitle is:")
-  console.log(truncateTitle)
-
   const [leftArrowVisibility, setLeftArrowVisibility] = useState(false)
   const [rightArrowVisibility, setRightArrowVisibility] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)

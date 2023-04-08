@@ -19,8 +19,6 @@ import axios from '../axiosConfig';
 
 const Home = ({ user, streamingServices, fetchResults, results, getResults, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider, resultsLoading, resultsSpinnerDegree, truncateTitle }) => {
 
-  console.log("In Home.jsx, truncateTitle is:")
-  console.log(truncateTitle)
   return (
     <div className="home">
       <div className='bg-img'></div>

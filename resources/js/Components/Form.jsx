@@ -6,10 +6,7 @@ import Result from './Result'
 import Slider from './Slider'
 
 const Form = ({ user, Link, results, getResults, fetchResults, streamingServices, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider, resultsLoading, resultsSpinnerDegree, truncateTitle }) => {
-
-  console.log("In Form.jsx, truncateTitle is:")
-  console.log(truncateTitle)
-
+  
   const [selectedResult, setSelectedResult] = useState(false)
 
   const addShowType = (e) => {

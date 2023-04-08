@@ -6,9 +6,6 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
 
   const truncatedTitle = truncateTitle(title, 30)
 
-  console.log("In Result.jsx, truncateTitle is:")
-  console.log(truncateTitle)
-
   const myShow = async (e) => {
     e.preventDefault();
     showType = showType.toLowerCase()

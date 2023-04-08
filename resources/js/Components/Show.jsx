@@ -3,9 +3,6 @@ import axios from '../axiosConfig'
 
 
 const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle }) => {
-
-  console.log("In Show.jsx, truncateTitle is:")
-  console.log(truncateTitle)
   
   const truncatedTitle = truncateTitle(title, 30)
   

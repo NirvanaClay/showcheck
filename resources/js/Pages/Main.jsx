@@ -334,9 +334,6 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
     return title.length > maxLength ? title.slice(0, maxLength) + '…' : title;
   }
 
-  console.log("In Main.jsx, truncateTitle is:")
-  console.log(truncateTitle)
-
   return (
     <Router>
       <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setEmail={setEmail} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
