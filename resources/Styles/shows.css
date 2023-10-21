@@ -309,5 +309,8 @@
   .show-index .shows__container .shows .show p {
     width: 120px;
   }
+  .show-index .shows__container .shows .show .stars-container form .fa-star {
+    font-size: 1.1rem;
+  }
 }
 /*# sourceMappingURL=shows.css.map */

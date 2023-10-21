@@ -254,12 +254,6 @@
   .show-index{
     .shows__container{
       width: 240px;
-      // .left-arrow__container{
-      //   left: -5px;
-      // }
-      // .right-arrow__container{
-      //   right: -5px;
-      // }
       .shows{
         .show{
           width: 120px;
@@ -269,6 +263,13 @@
           }
           p{
             width: 120px;
+          }
+          .stars-container{
+            form{
+              .fa-star{
+                font-size: 1.1rem;
+              }
+            }
           }
         }
       }
