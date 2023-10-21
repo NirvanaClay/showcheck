@@ -2,9 +2,21 @@ import { useState, useEffect } from 'react'
 import SeriesList from './SeriesList';
 import axios from '../axiosConfig'
 
-const Result = ({ title, image, id, user, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle }) => {
+const Result = ({ title, image, id, user, setStreamingServices, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle }) => {
+
+  const [showAdded, setShowAdded] = useState(false);
 
   const truncatedTitle = truncateTitle(title, 30)
+
+  useEffect(() => {
+    if (showAdded) {
+      const timer = setTimeout(() => {
+        setShowAdded(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAdded]);
+  
 
   const myShow = async (e) => {
     e.preventDefault();
@@ -17,6 +29,8 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
     } 
     await axios.post('/shows', data)
     .then(function(response){
+      setShowAdded(true)
+      setStreamingServices([])
       if(showType == 'series'){
         const seriesCheck = series.some(show => {
           return show.id == response.data
@@ -62,6 +76,7 @@ const Result = ({ title, image, id, user, streamingServices, getResults, checkSt
         <h2 id={id}>{truncatedTitle}</h2>
       </div>
       <img id={id} src={image}></img>
+      {showAdded && <p>Show added!</p>}
       {streamingId == id &&
         <div className={`loading ${isLoading && 'visible'}`}>
           <i className="fas fa-spinner" style={{transform: `rotate(${spinnerDegree}deg)`}}></i>
