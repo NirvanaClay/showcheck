@@ -50,6 +50,7 @@ const Main = () => {
 
   const [streamingServices, setStreamingServices] = useState([])
   const [streamingId, setStreamingId] = useState('')
+  const [streamingError, setStreamingError] = useState()
 
   const [userShows, setUserShows] = useState([])
   const [showType, setShowType] = useState('')
@@ -134,6 +135,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   const fetchResults = async (e) => {
     e.preventDefault()
+    getResults([])
     if(showType){
       setResultsLoading(true)
       setFailedSearch(false)
@@ -151,6 +153,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
   }
 
   const checkStreaming = async (e) => {
+    setStreamingError()
     setStreamingServices([])
     setIsLoading(true)
     const show_type = e.target.getAttribute('show_type')
@@ -178,7 +181,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
     let promises = []
     for(let i=0; i < streamingServicesList.length; i++){
       let streamingService = streamingServicesList[i]
-      promises.push(await new Promise((resolve, reject) => {
+      // promises.push(await new Promise((resolve, reject) => {
+      promises.push(new Promise((resolve, reject) => {
         let params = {
           country: 'us',
           service: streamingService,
@@ -206,7 +210,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
                   language: 'en',
                   keyword: `${title}`
                 },
-                headers: headers
+                headers: headers,
+                timeout: 7000
               }).then(res =>{
                 if(res.data.results.length > 0){
                   let usableResults
@@ -230,6 +235,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
               })
               .catch((e) => {
                 console.log(e)
+                setIsLoading(false)
+                setStreamingError("Something went wrong. Please reload the page and try again.")
               })
             }
           }
@@ -254,7 +261,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
               resolve()
             }
           }
-        }).catch(() => {
+        }).catch((e) => {
           console.log(e)
         })
       }))

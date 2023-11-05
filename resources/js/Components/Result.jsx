@@ -90,6 +90,7 @@ const Result = ({ title, image, id, user, setStreamingServices, streamingService
       {streamingServices == noStreaming && streamingId == id &&
         <p>{streamingServices}</p>
       }
+      {streamingError && <p>{streamingError}</p>}
       <form id={id} onSubmit={myShow} method="POST" action="/api/shows" name='show-form' className='show-form'>
         <input type ='hidden' name='title' value={title} />
         <input type ='hidden' name='image_url' value={image} />
