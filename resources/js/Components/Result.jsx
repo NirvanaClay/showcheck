@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import SeriesList from './SeriesList';
 import axios from '../axiosConfig'
 
-const Result = ({ title, image, id, user, setStreamingServices, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle }) => {
+const Result = ({ title, image, id, user, setStreamingServices, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle, streamingError }) => {
 
   const [showAdded, setShowAdded] = useState(false);
 
@@ -90,7 +90,9 @@ const Result = ({ title, image, id, user, setStreamingServices, streamingService
       {streamingServices == noStreaming && streamingId == id &&
         <p>{streamingServices}</p>
       }
-      {streamingError && <p>{streamingError}</p>}
+      {streamingError && 
+        <p>{streamingError}</p>
+      }
       <form id={id} onSubmit={myShow} method="POST" action="/api/shows" name='show-form' className='show-form'>
         <input type ='hidden' name='title' value={title} />
         <input type ='hidden' name='image_url' value={image} />

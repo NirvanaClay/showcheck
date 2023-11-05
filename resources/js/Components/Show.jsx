@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from '../axiosConfig'
 
 
-const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle }) => {
+const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle, streamingError }) => {
   
   const truncatedTitle = truncateTitle(title, 30)
   
@@ -108,6 +108,9 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
       ))}
       {streamingServices == noStreaming && streamingId == imdb_id &&
         <p>{streamingServices}</p>
+      }
+      {streamingError && 
+        <p>{streamingError}</p>
       }
       <div className='stars-container' id={id}>
         <form action='/shows/{id}' method='POST' onSubmit={addRating}>
