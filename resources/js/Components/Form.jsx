@@ -44,7 +44,7 @@ const Form = ({ user, Link, results, getResults, fetchResults, setStreamingServi
         {!user && 
         <p className='register-pitch'><Link to='/login'>Login</Link> or <Link to='/register'>Register</Link> to save and rate the shows that capture your attention.</p>
         }
-        <p className='streaming-list'>*We search Netflix, Hulu, Amazon Prime, HBO, Disney+, and Peacock.</p>
+        <p className='streaming-list'>*We search Netflix, Hulu, Amazon Prime, HBO Max, Disney+, and Peacock.</p>
       </form>
       <div className={`loading ${resultsLoading && 'visible'}`}>
         <i className="fas fa-spinner" style={{transform: `rotate(${resultsSpinnerDegree}deg)`}}></i>

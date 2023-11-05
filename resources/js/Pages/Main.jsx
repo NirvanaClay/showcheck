@@ -35,7 +35,6 @@ import Example from '../Components/Example.jsx'
 
 // import reportWebVitals from '../reportWebVitals';
 
-// import bootstrap from '../bootstrap';
 const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
