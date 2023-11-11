@@ -46,7 +46,7 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
     showsPerPage = 3
   }
   else if (medium.matches && !small.matches && !xSmall.matches){
-    sliderWidth=600
+    sliderWidth=570
     showsPerPage = 3
   } 
   else if(small.matches && !xSmall.matches){

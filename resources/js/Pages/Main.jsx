@@ -131,6 +131,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   const fetchResults = async (e) => {
     e.preventDefault()
+    setStreamingServices([])
     getResults([])
     if(showType){
       setResultsLoading(true)
@@ -149,36 +150,35 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
   }
 
   const checkStreaming = async (e) => {
-    setStreamingError()
-    setStreamingServices([])
-    setIsLoading(true)
-    const show_type = e.target.getAttribute('show_type')
-    const imdb_id = e.target.getAttribute('imdb_id')
-    const title = e.target.title
-    let showToCheck = null
-    let results = []
-    const streamingServicesList=[
-      'peacock',
-      'netflix',
-      'hulu',
-      'prime',
-      'disney', 
-      'hbo'
-    ]
-    setStreamingId(imdb_id)
-    const url = 'https://streaming-availability.p.rapidapi.com/search/pro'
-
-    const headers = {
-      'X-RapidAPI-Key': '153541ba38msh3a4675a0a844ccdp1a6a0cjsnc83d7caf9c90',
-      'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com',
-      // 'Access-Control-Allow-Origin':'*',
-      // 'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
-    }
-    let promises = []
-    for(let i=0; i < streamingServicesList.length; i++){
-      let streamingService = streamingServicesList[i]
-      // promises.push(await new Promise((resolve, reject) => {
-      promises.push(new Promise((resolve, reject) => {
+    try {
+      setStreamingError();
+      setStreamingServices([]);
+      setIsLoading(true);
+  
+      const show_type = e.target.getAttribute('show_type');
+      const imdb_id = e.target.getAttribute('imdb_id');
+      const title = e.target.title;
+  
+      const url = 'https://streaming-availability.p.rapidapi.com/search/pro';
+      const headers = {
+        'X-RapidAPI-Key': '153541ba38msh3a4675a0a844ccdp1a6a0cjsnc83d7caf9c90',
+        'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com',
+      };
+  
+      let results = [];
+      const streamingServicesList = [
+        'peacock',
+        'netflix',
+        'hulu',
+        'prime',
+        'disney', 
+        'hbo'
+      ];
+  
+      setStreamingId(imdb_id);
+  
+      for (const streamingService of streamingServicesList) {
+        console.log("Checking availability on:", streamingService)
         let params = {
           country: 'us',
           service: streamingService,
@@ -187,132 +187,72 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
           output_language: 'en',
           language: 'en',
           keyword: `${title}`
-        }
-        axios.get(url, {
-          params: params,
-          headers: headers
-        }).then(res =>{
-          if(res.data.total_pages > 1){
-            for(let i=0; i < res.data.total_pages; i++){
-              let page = i + 1
-              axios.get(url, {
-                params: {
-                  country: 'us',
-                  service: streamingService,
-                  type: show_type,
-                  order_by: 'original_title',
-                  page: page,
-                  output_language: 'en',
-                  language: 'en',
-                  keyword: `${title}`
-                },
-                headers: headers,
-                timeout: 7000
-              }).then(res =>{
-                if(res.data.results.length > 0){
-                  let usableResults
-                  for(let result of res.data.results){
-                    if(result.imdbID == imdb_id){
-                      showToCheck = result
-                    }
-                    if(showToCheck !== null){
-                      for(let key of Object.keys(showToCheck.streamingInfo)){
-                        results.push(key)
-                      }
-                      results = ([...new Set(results)])
-                      break                     
-                    }
-                  }
-                  return resolve(results)
-                }
-                else{
-                  resolve()
-                }
-              })
-              .catch((e) => {
-                console.log(e)
-                setIsLoading(false)
-                setStreamingError("Something went wrong. Please reload the page and try again.")
-              })
-            }
-          }
-          else{
-            if(res.data.results.length > 0){
-              let usableResults
-              for(let result of res.data.results){
-                if(result.imdbID == imdb_id){
-                  showToCheck = result
-                }
-                if(showToCheck !== null){
-                  for(let key of Object.keys(showToCheck.streamingInfo)){
-                    results.push(key)
-                  }
-                  results = ([...new Set(results)])
-                  break
-                }
-              }
-              return resolve(results)
-            }
-            else{
-              resolve()
-            }
-          }
-        }).catch((e) => {
-          console.log(e)
-        })
-      }))
-    }
-    Promise.all(promises)
-    .then((responses) => {
-      let validResponses = []
-      let finalArray
-      let finalResults
-      setIsLoading(false)
-      for(let response of responses){
-        if(response){
-          if(response.length > 0){
-            for(let singleResponse of response){
-              if(singleResponse){
-                if(singleResponse == 'prime'){
-                  singleResponse = primeLogo
-                  validResponses.push(singleResponse)
-                }
-                else if(singleResponse == 'netflix'){
-                  singleResponse = netflixLogo
-                  validResponses.push(singleResponse)
-                }
-                else if(singleResponse == 'hulu'){
-                  singleResponse = huluLogo
-                  validResponses.push(singleResponse)
-                }
-                else if(singleResponse == 'disney'){
-                  singleResponse = disneyLogo
-                  validResponses.push(singleResponse)
-                }
-                else if(singleResponse == 'hbo'){
-                  singleResponse = hboLogo
-                  validResponses.push(singleResponse)
-                }
-                else if(singleResponse == 'peacock'){
-                  singleResponse = peacockLogo
-                  validResponses.push(singleResponse)
-                }
+        };
+  
+        const initialResponse = await axios.get(url, { params, headers });
 
-                validResponses = ([...new Set(validResponses)])
-              }
-            }
+        let found = processResults(initialResponse.data.results, imdb_id, results);
+        // if (found) break; // Stop if found on the current service
+  
+        if (initialResponse.data.total_pages > 1) {
+          for (let page = 2; page <= initialResponse.data.total_pages; page++) {
+            console.log("Checking page ", page, " on ", streamingService);
+            params = { ...params, page }; // Update page number in params
+  
+            const pageResponse = await axios.get(url, { params, headers, timeout: 7000 });
+            found = processResults(pageResponse.data.results, imdb_id, results);
+            if (found) break;
           }
         }
+        // if (found) break;
       }
-      if(validResponses.length == 0){
-        setStreamingServices([noStreaming])
+  
+      // After all promises have been resolved:
+      setIsLoading(false);
+      setStreamingServices(processFinalResults(results));
+      
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setStreamingError("Something went wrong. Please reload the page and try again.");
+    }
+  }
+  
+  function processResults(results, imdb_id, existingResults) {
+    let showToCheck
+  
+    for (const result of results) {
+      console.log("Running loop, making sure results match show.");
+      if (result.imdbID === imdb_id) {
+        showToCheck = result;
+        break; // Found the desired show, no need to continue the loop
       }
-      else{
-        finalArray = [].concat(...validResponses)
-        finalResults = ([...new Set(finalArray)])
-        setStreamingServices([...finalResults])
+    }
+  
+    if (showToCheck) {
+      for (const key of Object.keys(showToCheck.streamingInfo)) {
+        existingResults.push(key);
       }
-    })
+      existingResults = [...new Set(existingResults)]; // Remove duplicates
+    }
+  
+    return existingResults;
+  }
+  
+  function processFinalResults(results) {
+    const logos = {
+      prime: primeLogo,
+      netflix: netflixLogo,
+      hulu: huluLogo,
+      disney: disneyLogo,
+      hbo: hboLogo,
+      peacock: peacockLogo
+    };
+  
+    let validResponses = results.map(service => logos[service] || service);
+    validResponses = [...new Set(validResponses)]; // Remove duplicates
+  
+    return validResponses.length === 0 ? [noStreaming] : validResponses;
   }
 
   const [sliderPosition, setSliderPosition] = useState(0)

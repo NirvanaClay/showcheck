@@ -242,10 +242,10 @@
     .results-container{
       width: 750px;
       .left-arrow__container{
-        left: 25px;
+        left: 20px;
       }
       .right-arrow__container{
-        right: 25px;
+        right: 20px;
       }
       .inverted{
         color: white;
@@ -273,19 +273,25 @@
       }
     }
     .results-container{
-      width: 600px;
+      width: 570px;
+      .left-arrow__container{
+        left: 0;
+      }
+      .right-arrow__container{
+        right: 0;
+      }
       .shows{
         .result{
-          width: 200px;
+          width: 190px;
           p{
-            width: 200px;
+            width: 190px;
           }
         }
       }
     }
   }
 }
-@media(max-width: 480px){
+@media(max-width: 576px){
   .form{
     padding: 10px;
     h1{
