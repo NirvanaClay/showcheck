@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from '../axiosConfig'
 
 const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows }) => {
@@ -32,15 +31,14 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
           </div>
           <div className='field'>
             <label htmlFor='password'>Password</label>
-            {/* <div className='password-container'> */}
             <input type = {`${!passwordVisibility ? 'password' : 'text'}`} name='password'  autoComplete='off' />
             <div className='visibility-container'>
               <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={changePasswordVisibility}></i>
             </div>
-            {/* </div> */} 
           </div>
-          {/* <p onClick={resetPassword}>Forgot password?</p> */}
-          {/* <input type="hidden" name="_token" value="{{ csrf_token() }}" /> */}
+          <Link to='/forgot-password'>
+              Forgot your password?
+          </Link>
           <input type='submit' value='Login' />
         </form>
       </div>

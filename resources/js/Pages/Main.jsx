@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import React from 'react';
 
@@ -22,6 +22,9 @@ import '../../Styles/home.scss'
 import '../../Styles/login.scss'
 import '../../Styles/register.scss'
 import '../../Styles/shows.scss'
+import '../../Styles/forgot-password.scss'
+import '../../Styles/reset-password.scss'
+
 
 import Home from './Home.jsx'
 import Header from '../Components/Header.jsx'
@@ -30,10 +33,8 @@ import MoviesList from '../Components/MoviesList.jsx'
 import RegisterForm from '../Components/RegisterForm.jsx'
 import LoginForm from '../Components/LoginForm.jsx'
 import LogoutForm from '../Components/LogoutForm.jsx'
-import Dashboard from '../Components/Dashboard.jsx'
-import Example from '../Components/Example.jsx'
-
-// import reportWebVitals from '../reportWebVitals';
+import ForgotPassword from './Auth/ForgotPassword';
+import ResetPassword from './Auth/ResetPassword';
 
 const Main = () => {
 
@@ -42,7 +43,6 @@ const Main = () => {
   const [email, setEmail] = useState('')
   const [userId, setUserId] = useState(0)
   const [results, getResults] = useState([])
-  const [details, getDetails] = useState([])
 
   const [streamingServices, setStreamingServices] = useState([])
   const [streamingId, setStreamingId] = useState('')
@@ -286,6 +286,10 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 
         <Route path="login" element={<LoginForm setLoginStatus={setLoginStatus} loginStatus={loginStatus} setUser={setUser} setUserId={setUserId} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} resetSlider={resetSlider} userShows={userShows} setUserShows={setUserShows} />} />
+
+        <Route path="forgot-password" element={<ForgotPassword />} />
+
+        <Route path="reset-password/:token" element={<ResetPassword />} />
 
         <Route path='my-series' element={<SeriesList user={user} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices} streamingId={streamingId} noStreaming={noStreaming} loginStatus={loginStatus} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} />} />
 

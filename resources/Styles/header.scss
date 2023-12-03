@@ -1,15 +1,17 @@
 .navbar{
   display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 100vw;
   height: 100px;
   background: white;
-  margin: 0;
+  margin: 0 auto;
   // padding: 0 100px;
   font-family: 'Source Sans Pro', sans-serif;
   ul{
-    width: 100%;
-    padding: 0 250px;
+    width: 60%;
+    margin: 0 auto;
+    // padding: 0 200px;
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -93,9 +95,9 @@
 
 @media(max-width: 992px){
   .navbar{
-    padding: 0 50px;
+    // padding: 0 50px;
     ul{
-      padding: 0 20px;
+      // padding: 0 20px;
       li{
         text-align: center;
         a{
@@ -110,9 +112,10 @@
 
 @media(max-width: 768px){
   .navbar{
-    padding: 0;
+    // padding: 0;
     ul{
-      padding: 0 20px;
+      width: 70%;
+      // padding: 0 50px;
       // flex-direction: column;
       li{
         text-align: center;
@@ -136,7 +139,8 @@
 @media(max-width: 480px){
   .navbar{
     ul{
-      padding: 0 10px;
+      width: 80%;
+      // padding: 0 10px;
       li{
         a{
           font-size: 1.1rem;

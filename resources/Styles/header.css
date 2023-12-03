@@ -5,16 +5,19 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   max-width: 100vw;
   height: 100px;
   background: white;
-  margin: 0;
+  margin: 0 auto;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
 .navbar ul {
-  width: 100%;
-  padding: 0 250px;
+  width: 60%;
+  margin: 0 auto;
   list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -130,12 +133,6 @@
 }
 
 @media (max-width: 992px) {
-  .navbar {
-    padding: 0 50px;
-  }
-  .navbar ul {
-    padding: 0 20px;
-  }
   .navbar ul li {
     text-align: center;
   }
@@ -145,11 +142,8 @@
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0;
-  }
   .navbar ul {
-    padding: 0 20px;
+    width: 70%;
   }
   .navbar ul li {
     text-align: center;
@@ -179,7 +173,7 @@
 
 @media (max-width: 480px) {
   .navbar ul {
-    padding: 0 10px;
+    width: 80%;
   }
   .navbar ul li a {
     font-size: 1.1rem;

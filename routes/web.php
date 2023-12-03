@@ -115,6 +115,9 @@ Route::post('/logout', function(Request $request){
     // return redirect('/');
 });
 
+// Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+// ->name('password.request');
+
 Route::get('{any}', function () {
     return Inertia::render('Main', [
         // 'canLogin' => Route::has('login'),
@@ -123,5 +126,4 @@ Route::get('{any}', function () {
         // 'phpVersion' => PHP_VERSION,
     ]);
 });
-
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
