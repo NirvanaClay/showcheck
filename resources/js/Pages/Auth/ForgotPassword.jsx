@@ -55,7 +55,7 @@ export default function ForgotPassword() {
                     onChange={onHandleChange}
                 />
     
-                <InputError message={errors.email} />
+                <InputError message={errors.email} className='error-message' />
     
                 <div>
                     <PrimaryButton disabled={processing}>
