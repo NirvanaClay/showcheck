@@ -6,10 +6,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function ResetPassword({ token, email }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function ResetPassword({ token, email, passwordVisibility, passwordConfirmVisibility, changePasswordVisibility }) {
+    const navigate = useNavigate();
     const { data, setData, post, processing, errors, reset } = useForm({
-        token: token,
-        email: email,
+        token: token || '',
+        email: email || '',
         password: '',
         password_confirmation: '',
     });
@@ -26,8 +29,15 @@ export default function ResetPassword({ token, email }) {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('password.store'));
+        post(route('password.email'), {
+            onSuccess: () => {
+                navigate('/');
+            },
+            onError: (error) => {
+                console.error('Error:', error);
+            }
+        });
+    
     };
 
     return (
@@ -35,7 +45,7 @@ export default function ResetPassword({ token, email }) {
             <Head title="Reset Password" />
             <h1>Password Reset</h1>
             <form onSubmit={submit}>
-                <div>
+                <div className='field'>
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -43,41 +53,44 @@ export default function ResetPassword({ token, email }) {
                         type="email"
                         name="email"
                         value={data.email}
+                        isFocused={true}
                         autoComplete="username"
                         onChange={onHandleChange}
                     />
 
-                    <InputError message={errors.email} />
+                    <InputError className='error-message' message={errors.email} />
                 </div>
 
-                <div>
+                <div className='field'>
                     <InputLabel htmlFor="password" value="Password" />
-
                     <TextInput
+                        type={`${!passwordVisibility ? 'password' : 'text'}`}
                         id="password"
-                        type="password"
                         name="password"
                         value={data.password}
                         autoComplete="new-password"
-                        isFocused={true}
                         onChange={onHandleChange}
                     />
-
-                    <InputError message={errors.password} />
+                    <div className='visibility-container'>
+                        <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={() => {changePasswordVisibility('original')}}></i>
+                    </div>
+                    <InputError className='error-message' message={errors.password} />
                 </div>
 
-                <div>
+                <div className='field'>
                     <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
 
                     <TextInput
-                        type="password"
+                        type={`${!passwordConfirmVisibility ? 'password' : 'text'}`}
                         name="password_confirmation"
                         value={data.password_confirmation}
                         autoComplete="new-password"
                         onChange={onHandleChange}
                     />
-
-                    <InputError message={errors.password_confirmation} />
+                    <div className='visibility-container'>
+                        <i className={`fas fa-eye${!passwordConfirmVisibility ? '-slash' : ''}`} onClick={() => {changePasswordVisibility('confirmation')}}></i>
+                    </div>
+                    <InputError className='error-message' message={errors.password_confirmation} />
                 </div>
 
                 <div>

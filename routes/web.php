@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
-use Laravel\Sanctum\Http\Controllers\Api\AuthController;
+// use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
+// use Laravel\Sanctum\Http\Controllers\Api\AuthController;
 
-use App\Models\Show;
+// use App\Models\Show;
 use App\Models\User;
 
 use Illuminate\Auth\Events\Registered;
@@ -29,12 +29,6 @@ use Inertia\Inertia;
 
 Route::get(`/`, function () {
     return Inertia::render('Main');
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
 });
 
 Route::post('/register', function(Request $request) {
@@ -53,7 +47,6 @@ Route::post('/register', function(Request $request) {
     Auth::login($user);
     $csrfToken = csrf_token();
     return $csrfToken;
-    // return "Testing register route.";
 });
 
 Route::post('/login', function(Request $request) {

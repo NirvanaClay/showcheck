@@ -40,8 +40,8 @@ const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
   const [user, setUser] = useState();
-  const [email, setEmail] = useState('')
-  const [userId, setUserId] = useState(0)
+  // const [email, setEmail] = useState('')
+  // const [userId, setUserId] = useState(0)
   const [results, getResults] = useState([])
 
   const [streamingServices, setStreamingServices] = useState([])
@@ -85,20 +85,20 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         let userInfo = e.data
         if (userInfo) {
           setUser(userInfo);
-          setUserId(userInfo.id);
-          setEmail(userInfo.email)
-          setUserId(userInfo.id)
+          // setUserId(userInfo.id);
+          // setEmail(userInfo.email)
+          // setUserId(userInfo.id)
         }
       });
       axios.get('userShows').then((e) => {
         setUserShows([...e.data]);
       });
     }
-    else{
-      setEmail('')
-      setUserId(0)
+    // else{
+      // setEmail('')
+      // setUserId(0)
       // setLoginStatus(false)
-    }
+    // }
   }, [loginStatus, changedRating]);
 
   useEffect(() => {
@@ -122,8 +122,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
       else{
         getSeries([])
         getMovies([])
-        setEmail('')
-        setUserId(0)
+        // setEmail('')
+        // setUserId(0)
       }
     }
     fetchShows()
@@ -178,7 +178,6 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
       setStreamingId(imdb_id);
   
       for (const streamingService of streamingServicesList) {
-        console.log("Checking availability on:", streamingService)
         let params = {
           country: 'us',
           service: streamingService,
@@ -192,27 +191,21 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         const initialResponse = await axios.get(url, { params, headers });
 
         let found = processResults(initialResponse.data.results, imdb_id, results);
-        // if (found) break; // Stop if found on the current service
   
         if (initialResponse.data.total_pages > 1) {
           for (let page = 2; page <= initialResponse.data.total_pages; page++) {
-            console.log("Checking page ", page, " on ", streamingService);
-            params = { ...params, page }; // Update page number in params
+            params = { ...params, page };
   
             const pageResponse = await axios.get(url, { params, headers, timeout: 7000 });
             found = processResults(pageResponse.data.results, imdb_id, results);
             if (found) break;
           }
         }
-        // if (found) break;
       }
-  
-      // After all promises have been resolved:
       setIsLoading(false);
       setStreamingServices(processFinalResults(results));
       
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
       setStreamingError("Something went wrong. Please reload the page and try again.");
     }
@@ -220,12 +213,10 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
   
   function processResults(results, imdb_id, existingResults) {
     let showToCheck
-  
     for (const result of results) {
-      console.log("Running loop, making sure results match show.");
       if (result.imdbID === imdb_id) {
         showToCheck = result;
-        break; // Found the desired show, no need to continue the loop
+        break;
       }
     }
   
@@ -233,7 +224,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
       for (const key of Object.keys(showToCheck.streamingInfo)) {
         existingResults.push(key);
       }
-      existingResults = [...new Set(existingResults)]; // Remove duplicates
+      existingResults = [...new Set(existingResults)];
     }
   
     return existingResults;
@@ -250,7 +241,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
     };
   
     let validResponses = results.map(service => logos[service] || service);
-    validResponses = [...new Set(validResponses)]; // Remove duplicates
+    validResponses = [...new Set(validResponses)];
   
     return validResponses.length === 0 ? [noStreaming] : validResponses;
   }
@@ -268,9 +259,15 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
   }
 
   const [passwordVisibility, setPasswordVisibility] = useState(false)
+  const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(false)
 
-  const changePasswordVisibility = () => {
-    setPasswordVisibility(!passwordVisibility)
+  const changePasswordVisibility = (type) => {
+    if(type=='original'){
+      setPasswordVisibility(!passwordVisibility)
+    }
+    if(type=='confirmation'){
+      setPasswordConfirmVisibility(!passwordConfirmVisibility)
+    }
   }
 
   const truncateTitle = (title, maxLength) => {
@@ -279,17 +276,17 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   return (
     <Router>
-      <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setEmail={setEmail} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
+      <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
       <Routes>
         <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} setStreamingServices={setStreamingServices} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} resultsLoading={resultsLoading} resultsSpinnerDegree={resultsSpinnerDegree} truncateTitle={truncateTitle} streamingError={streamingError} />} />
 
-        <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} />} />
+        <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 
-        <Route path="login" element={<LoginForm setLoginStatus={setLoginStatus} loginStatus={loginStatus} setUser={setUser} setUserId={setUserId} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} resetSlider={resetSlider} userShows={userShows} setUserShows={setUserShows} />} />
+        <Route path="login" element={<LoginForm setLoginStatus={setLoginStatus} loginStatus={loginStatus} setUser={setUser} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} resetSlider={resetSlider} userShows={userShows} setUserShows={setUserShows} />} />
 
         <Route path="forgot-password" element={<ForgotPassword />} />
 
-        <Route path="reset-password/:token" element={<ResetPassword />} />
+        <Route path="reset-password/:token" element={<ResetPassword passwordVisibility={passwordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 
         <Route path='my-series' element={<SeriesList user={user} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices} streamingId={streamingId} noStreaming={noStreaming} loginStatus={loginStatus} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} />} />
 

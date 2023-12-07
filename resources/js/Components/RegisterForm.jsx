@@ -2,7 +2,7 @@ import axios from '../axiosConfig';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
-const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility }) => {
+const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility }) => {
   const navigate = useNavigate();
 
   const addUser = async (e) => {
@@ -30,12 +30,15 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
           <label htmlFor='password'>Password</label>
          <input type = {`${!passwordVisibility ? 'password' : 'text'}`} name='password'  autoComplete='off' />
           <div className='visibility-container'>
-            <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={changePasswordVisibility}></i>
+            <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={() => {changePasswordVisibility('original')}}></i>
           </div>
         </div>
         <div className='field'>
           <label htmlFor='password_confirmation'>Confirm Password</label>
-          <input type = {`${!passwordVisibility ? 'password' : 'text'}`} name='password'  autoComplete='off' />
+          <input type = {`${!passwordConfirmVisibility ? 'password' : 'text'}`} name='password'  autoComplete='off' />
+          <div className='visibility-container'>
+            <i className={`fas fa-eye${!passwordConfirmVisibility ? '-slash' : ''}`} onClick={() => {changePasswordVisibility('confirmation')}}></i>
+          </div>
         </div>
         <input type='submit' value='Register' />
       </form>

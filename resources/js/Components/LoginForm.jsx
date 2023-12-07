@@ -33,7 +33,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
             <label htmlFor='password'>Password</label>
             <input type = {`${!passwordVisibility ? 'password' : 'text'}`} name='password'  autoComplete='off' />
             <div className='visibility-container'>
-              <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={changePasswordVisibility}></i>
+              <i className={`fas fa-eye${!passwordVisibility ? '-slash' : ''}`} onClick={() => {changePasswordVisibility('original')}}></i>
             </div>
           </div>
           <Link to='/forgot-password'>
