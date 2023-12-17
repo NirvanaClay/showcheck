@@ -14,6 +14,8 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
     })
     .then((e) => {
       setLoginStatus(true)
+      setPasswordVisibility(false)
+      setPasswordConfirmVisibility(false)
       navigate('/', { replace: true })
     })
   }

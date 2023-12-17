@@ -17,6 +17,8 @@ export default function ResetPassword({ token, email, passwordVisibility, passwo
         password_confirmation: '',
     });
 
+    console.log("In Reset Password.")
+
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
@@ -29,8 +31,10 @@ export default function ResetPassword({ token, email, passwordVisibility, passwo
 
     const submit = (e) => {
         e.preventDefault();
+        console.log("Running submit function.")
         post(route('password.email'), {
             onSuccess: () => {
+                console.log("Ran the route");
                 navigate('/');
             },
             onError: (error) => {

@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Inertia\Response;
+
+use Illuminate\Support\Facades\Http;
+
 // use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 // use Laravel\Sanctum\Http\Controllers\Api\AuthController;
 
@@ -29,6 +39,20 @@ use Inertia\Inertia;
 
 Route::get(`/`, function () {
     return Inertia::render('Main');
+});
+
+Route::get('/searchShows', function(Request $request){
+    $showType = $request->query('showType');
+    $searchQuery = $request->query('query');
+    $apiKey = env('SEARCH_API_KEY');
+    $url = "https://imdb-api.com/en/API/Search${showType}/$apiKey/$searchQuery";
+    try {
+        $response = Http::get($url);
+        return $response->json();
+    } 
+    catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to fetch data from the IMDb API: ' . $e->getMessage()], 500);
+    }
 });
 
 Route::post('/register', function(Request $request) {
@@ -69,10 +93,6 @@ Route::post('/login', function(Request $request) {
     ]);
 });
 
-Route::get('/checkLogin', function() {
-    return Auth::check();
-});
-
 Route::get('/user', function (Request $request) {
     if(Auth::check()){
         $user = Auth::user();
@@ -111,6 +131,33 @@ Route::post('/logout', function(Request $request){
 // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
 // ->name('password.request');
 
+Route::post('/reset-password', function(Request $request): RedirectResponse
+{
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user) use ($request) {
+            $user->forceFill([
+                'password' => Hash::make($request->password),
+                'remember_token' => Str::random(60),
+            ])->save();
+    
+            event(new PasswordReset($user));
+        }
+    );     
+    if ($status == Password::PASSWORD_RESET) {
+        return redirect()->route('login')->with('status', __($status));
+    }
+
+    throw ValidationException::withMessages([
+        'email' => [trans($status)],
+    ]);
+});
+
 Route::get('{any}', function () {
     return Inertia::render('Main', [
         // 'canLogin' => Route::has('login'),
@@ -119,4 +166,5 @@ Route::get('{any}', function () {
         // 'phpVersion' => PHP_VERSION,
     ]);
 });
+
 require __DIR__.'/auth.php';

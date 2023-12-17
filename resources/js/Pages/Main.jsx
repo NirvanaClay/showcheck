@@ -40,8 +40,6 @@ const Main = () => {
 
   const [loginStatus, setLoginStatus] = useState(false);
   const [user, setUser] = useState();
-  // const [email, setEmail] = useState('')
-  // const [userId, setUserId] = useState(0)
   const [results, getResults] = useState([])
 
   const [streamingServices, setStreamingServices] = useState([])
@@ -66,18 +64,18 @@ const Main = () => {
   const noStreaming = "This show is not currently available through streaming."
 
   const useSpinner = (loading, spinnerDegree, setSpinnerDegree) => {
-  useEffect(() => {
-    if (loading) {
-      const interval = setInterval(() => {
-        setSpinnerDegree(spinnerDegree + 90);
-      }, 100);
-      return () => clearInterval(interval);
-    }
-  }, [spinnerDegree, loading]);
-};
+    useEffect(() => {
+      if (loading) {
+        const interval = setInterval(() => {
+          setSpinnerDegree(spinnerDegree + 90);
+        }, 100);
+        return () => clearInterval(interval);
+      }
+    }, [spinnerDegree, loading]);
+  };
 
-useSpinner(isLoading, spinnerDegree, setSpinnerDegree);
-useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
+  useSpinner(isLoading, spinnerDegree, setSpinnerDegree);
+  useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   useEffect(() => {
     if (loginStatus) {
@@ -85,31 +83,16 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         let userInfo = e.data
         if (userInfo) {
           setUser(userInfo);
-          // setUserId(userInfo.id);
-          // setEmail(userInfo.email)
-          // setUserId(userInfo.id)
         }
       });
       axios.get('userShows').then((e) => {
         setUserShows([...e.data]);
       });
     }
-    // else{
-      // setEmail('')
-      // setUserId(0)
-      // setLoginStatus(false)
-    // }
   }, [loginStatus, changedRating]);
 
-  useEffect(() => {
-    axios.get('checkLogin').then((e) => {
-      const isLoggedIn = e.data;
-      setLoginStatus(isLoggedIn);
-    });
-  }, []);
-
   useEffect((e) => {
-    const fetchShows = async () => {
+    const fetchShows = () => {
       if(user){
         let userSeries = userShows.filter(show => show.show_type == 'series')
         let userMovies = userShows.filter(show => show.show_type == 'movie')
@@ -118,53 +101,53 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         getSeries([...orderedUserSeries])
         getMovies([...orderedUserMovies])
       }
-
       else{
         getSeries([])
         getMovies([])
-        // setEmail('')
-        // setUserId(0)
       }
     }
     fetchShows()
   }, [user, changedRating, userShows])
 
-  const fetchResults = async (e) => {
-    e.preventDefault()
-    setStreamingServices([])
-    getResults([])
-    if(showType){
-      setResultsLoading(true)
-      setFailedSearch(false)
-      const searchString = `https://imdb-api.com/en/API/Search${showType}/k_j0x59844/${e.target[2].value}`
-      const res = await fetch(searchString)
-      const data = await res.json()
-      if(data.results){
-        getResults(data.results)
-        setResultsLoading(false)
+  const fetchResults = (e) => {
+    e.preventDefault();
+    setStreamingServices([]);
+    getResults([]);
+    if(showType) {
+        setResultsLoading(true);
+        setFailedSearch(false);
+        axios.get(`/searchShows?showType=${showType}&query=${encodeURIComponent(e.target[2].value)}`)
+            .then(res => {
+                const data = res.data;
+                if (data && data.results) {
+                    getResults(data.results);
+                    setResultsLoading(false);
+                } 
+                else {
+                  setFailedSearch(true);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching results:', error);
+                setFailedSearch(true);
+            });
       }
-      else{
-        setFailedSearch(true)
-      }
-    }
-  }
+  };
+
 
   const checkStreaming = async (e) => {
     try {
       setStreamingError();
       setStreamingServices([]);
-      setIsLoading(true);
-  
+      setIsLoading(true);  
       const show_type = e.target.getAttribute('show_type');
       const imdb_id = e.target.getAttribute('imdb_id');
-      const title = e.target.title;
-  
+      const title = e.target.title;  
       const url = 'https://streaming-availability.p.rapidapi.com/search/pro';
       const headers = {
         'X-RapidAPI-Key': '153541ba38msh3a4675a0a844ccdp1a6a0cjsnc83d7caf9c90',
         'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com',
-      };
-  
+      };  
       let results = [];
       const streamingServicesList = [
         'peacock',
@@ -174,9 +157,7 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         'disney', 
         'hbo'
       ];
-  
       setStreamingId(imdb_id);
-  
       for (const streamingService of streamingServicesList) {
         let params = {
           country: 'us',
@@ -187,15 +168,11 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
           language: 'en',
           keyword: `${title}`
         };
-  
         const initialResponse = await axios.get(url, { params, headers });
-
         let found = processResults(initialResponse.data.results, imdb_id, results);
-  
         if (initialResponse.data.total_pages > 1) {
           for (let page = 2; page <= initialResponse.data.total_pages; page++) {
             params = { ...params, page };
-  
             const pageResponse = await axios.get(url, { params, headers, timeout: 7000 });
             found = processResults(pageResponse.data.results, imdb_id, results);
             if (found) break;
@@ -204,8 +181,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
       }
       setIsLoading(false);
       setStreamingServices(processFinalResults(results));
-      
-    } catch (error) {
+    } 
+    catch (error) {
       setIsLoading(false);
       setStreamingError("Something went wrong. Please reload the page and try again.");
     }
@@ -225,11 +202,9 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
         existingResults.push(key);
       }
       existingResults = [...new Set(existingResults)];
-    }
-  
+    }  
     return existingResults;
   }
-  
   function processFinalResults(results) {
     const logos = {
       prime: primeLogo,
@@ -239,10 +214,8 @@ useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
       hbo: hboLogo,
       peacock: peacockLogo
     };
-  
     let validResponses = results.map(service => logos[service] || service);
     validResponses = [...new Set(validResponses)];
-  
     return validResponses.length === 0 ? [noStreaming] : validResponses;
   }
 

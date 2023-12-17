@@ -13,7 +13,7 @@ const LogoutForm = ({ setEmail, setUser, setLoginStatus, resetSlider }) => {
     navigate('/')
   }
   return (
-    <form method='POST' action='/logout' onClick={resetSlider} onSubmit={logout}>
+    <form onClick={resetSlider} onSubmit={logout}>
       <input type='submit' value='Log Out' />
     </form>
   )

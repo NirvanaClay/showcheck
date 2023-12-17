@@ -14,6 +14,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     axios.post('login', data)
     .then((e) => {
       setLoginStatus(true)
+      setPasswordVisibility(false)
       navigate('/', { replace: true })
     })
     .catch((e) => {
@@ -24,7 +25,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
     <>
       <div className='loginForm'>
         <h1>Log In</h1>
-        <form onSubmit={loginUser} method='POST' action='/login'>
+        <form onSubmit={loginUser}>
           <div className='field'>
             <label htmlFor='email'>Email</label>
             <input type ='text' name='email' />
