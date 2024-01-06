@@ -93,6 +93,10 @@ Route::post('/login', function(Request $request) {
     ]);
 });
 
+Route::get('/checkLogin', function (Request $request) {
+    return Auth::check();
+});
+
 Route::get('/user', function (Request $request) {
     if(Auth::check()){
         $user = Auth::user();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from '../axiosConfig'
 
-const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows }) => {
+const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows, loginError, setLoginError }) => {
   const navigate = useNavigate()
   
   const loginUser = async (e) => {
@@ -18,7 +18,7 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
       navigate('/', { replace: true })
     })
     .catch((e) => {
-      console.log(e.response.data)
+      setLoginError(e.response.data.message)
     })
   }
   return(
@@ -42,6 +42,9 @@ const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, s
           </Link>
           <input type='submit' value='Login' />
         </form>
+        {loginError &&
+          <p>{loginError}</p>
+        }
       </div>
     </>
   )

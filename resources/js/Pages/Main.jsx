@@ -59,6 +59,9 @@ const Main = () => {
 
   const [failedSearch, setFailedSearch] = useState(false)
 
+  const [loginError, setLoginError] = useState('')
+  const [registerError, setRegisterError] = useState('')
+
   const [changedRating, setChangedRating] = useState(false)
 
   const noStreaming = "This show is not currently available through streaming."
@@ -78,15 +81,40 @@ const Main = () => {
   useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   useEffect(() => {
-    if (loginStatus) {
-      axios.get('user').then((e) => {
-        let userInfo = e.data
-        if (userInfo) {
-          setUser(userInfo);
+    console.log("loginStatus is:")
+    console.log(loginStatus)
+  }, [loginStatus])
+
+  useEffect(() => {
+    console.log("Running checkLogin")
+    axios.get('checkLogin')
+    .then((res) =>{
+      console.log("with res of:")
+      console.log(res)
+      if(res.data){
+        setLoginStatus(true)
+      }
+      else{
+        setLoginStatus(false)
+      }
+    })
+  }, [user])
+
+  useEffect(() => {
+    if(loginStatus){
+      Promise.all([
+        axios.get('user'),
+        axios.get('userShows')
+      ])
+      .then(([userRes, userShowsRes]) => {
+        if(userRes.data){
+          setUser(userRes.data)
         }
-      });
-      axios.get('userShows').then((e) => {
-        setUserShows([...e.data]);
+        if(userShowsRes.data){
+          setUserShows([...userShowsRes.data])
+        }
+      }).catch((err) => {
+        console.error("Error occured:", err)
       });
     }
   }, [loginStatus, changedRating]);
@@ -253,9 +281,9 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} setStreamingServices={setStreamingServices} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} resultsLoading={resultsLoading} resultsSpinnerDegree={resultsSpinnerDegree} truncateTitle={truncateTitle} streamingError={streamingError} />} />
 
-        <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
+        <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} registerError={registerError} setRegisterError={setRegisterError} />} />
 
-        <Route path="login" element={<LoginForm setLoginStatus={setLoginStatus} loginStatus={loginStatus} setUser={setUser} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} resetSlider={resetSlider} userShows={userShows} setUserShows={setUserShows} />} />
+        <Route path="login" element={<LoginForm setLoginStatus={setLoginStatus} loginStatus={loginStatus} setUser={setUser} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} changePasswordVisibility={changePasswordVisibility} resetSlider={resetSlider} userShows={userShows} setUserShows={setUserShows} loginError={loginError} setLoginError={setLoginError} />} />
 
         <Route path="forgot-password" element={<ForgotPassword />} />
 

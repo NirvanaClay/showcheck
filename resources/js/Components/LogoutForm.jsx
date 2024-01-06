@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom'
 const LogoutForm = ({ setEmail, setUser, setLoginStatus, resetSlider }) => {
   const navigate = useNavigate();
 
-  const logout = async (e) => {
+  const logout = (e) => {
     e.preventDefault()
     axios.post('/logout')
-    setUser()
-    setLoginStatus(false)
-    navigate('/')
+    .then(() => {
+      setUser()
+      setLoginStatus(false)
+      navigate('/')
+    })
   }
   return (
     <form onClick={resetSlider} onSubmit={logout}>

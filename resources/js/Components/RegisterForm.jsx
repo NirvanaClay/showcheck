@@ -2,12 +2,12 @@ import axios from '../axiosConfig';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
-const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility }) => {
+const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility, registerError, setRegisterError }) => {
   const navigate = useNavigate();
 
-  const addUser = async (e) => {
+  const addUser = (e) => {
     e.preventDefault();
-    await axios.post('register', {
+    axios.post('register', {
       email: e.target[0].value,
       password: e.target[1].value,
       password_confirmation: e.target[2].value
@@ -17,6 +17,9 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
       setPasswordVisibility(false)
       setPasswordConfirmVisibility(false)
       navigate('/', { replace: true })
+    })
+    .catch((e) => {
+      setRegisterError(e.response.data.message)
     })
   }
 
@@ -44,6 +47,9 @@ const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPassword
         </div>
         <input type='submit' value='Register' />
       </form>
+      {registerError && 
+        <p>{registerError}</p>
+      }
     </div>
   )
 }
