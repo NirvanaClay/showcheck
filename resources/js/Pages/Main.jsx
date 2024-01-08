@@ -64,6 +64,9 @@ const Main = () => {
 
   const [changedRating, setChangedRating] = useState(false)
 
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
+  const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(false)
+
   const noStreaming = "This show is not currently available through streaming."
 
   const useSpinner = (loading, spinnerDegree, setSpinnerDegree) => {
@@ -79,6 +82,11 @@ const Main = () => {
 
   useSpinner(isLoading, spinnerDegree, setSpinnerDegree);
   useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
+
+  useEffect(() => {
+    console.log("Password visibility is:")
+    console.log(passwordVisibility)
+  }, [passwordVisibility])
 
   useEffect(() => {
     axios.get('/checkLogin')
@@ -251,9 +259,6 @@ const Main = () => {
     setSliderPosition(0)
   }
 
-  const [passwordVisibility, setPasswordVisibility] = useState(false)
-  const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(false)
-
   const changePasswordVisibility = (type) => {
     if(type=='original'){
       setPasswordVisibility(!passwordVisibility)
@@ -279,7 +284,7 @@ const Main = () => {
 
         <Route path="forgot-password" element={<ForgotPassword />} />
 
-        <Route path="reset-password/:token" element={<ResetPassword passwordVisibility={passwordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
+        <Route path="reset-password/:token" element={<ResetPassword passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 
         <Route path='my-series' element={<SeriesList user={user} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices} streamingId={streamingId} noStreaming={noStreaming} loginStatus={loginStatus} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} />} />
 

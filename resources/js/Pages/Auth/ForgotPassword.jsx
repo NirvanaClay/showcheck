@@ -9,10 +9,6 @@ export default function ForgotPassword({ status }) {
 // export default function ForgotPassword() {
     const [statusMessage, setStatusMessage] = useState('')
 
-    useEffect(() => {
-        console.log("statusMessage is:")
-        console.log(statusMessage)
-    }, [])
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });

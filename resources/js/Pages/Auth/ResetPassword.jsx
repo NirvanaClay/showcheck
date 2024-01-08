@@ -8,7 +8,7 @@ import { Head, useForm } from '@inertiajs/react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function ResetPassword({ email, passwordVisibility, passwordConfirmVisibility, changePasswordVisibility }) {
+export default function ResetPassword({ email, passwordVisibility, setPasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility, changePasswordVisibility  }) {
     const navigate = useNavigate();
     const { token } = useParams();
 
@@ -20,7 +20,7 @@ export default function ResetPassword({ email, passwordVisibility, passwordConfi
         password: '',
         password_confirmation: '',
     });
-    
+
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
@@ -35,7 +35,8 @@ export default function ResetPassword({ email, passwordVisibility, passwordConfi
         e.preventDefault();
         post(route('password.store'), {
             onSuccess: () => {
-                changePasswordVisibility(false)
+                setPasswordVisibility(false)
+                setPasswordConfirmVisibility(false)
                 setPasswordSuccess(true)
             },
             onError: (error) => {
