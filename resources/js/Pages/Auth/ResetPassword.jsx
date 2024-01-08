@@ -20,13 +20,7 @@ export default function ResetPassword({ email, passwordVisibility, passwordConfi
         password: '',
         password_confirmation: '',
     });
-
-    console.log("In Reset Password.")
-    useEffect(() => {
-        console.log("token is:")
-        console.log(token)
-    }, [])
-
+    
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
