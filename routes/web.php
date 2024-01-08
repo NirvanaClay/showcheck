@@ -87,7 +87,6 @@ Route::post('/login', function(Request $request) {
         $csrfToken = csrf_token();
         return $csrfToken;
     }
-
     return back()->withErrors([
         'email' => 'The provided credentials do not match our records.',
     ]);

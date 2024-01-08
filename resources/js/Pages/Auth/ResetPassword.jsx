@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -6,10 +6,14 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function ResetPassword({ token, email, passwordVisibility, passwordConfirmVisibility, changePasswordVisibility }) {
+export default function ResetPassword({ email, passwordVisibility, passwordConfirmVisibility, changePasswordVisibility }) {
     const navigate = useNavigate();
+    const { token } = useParams();
+
+    const [passwordSuccess, setPasswordSuccess] = useState(false)
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token || '',
         email: email || '',
@@ -18,6 +22,10 @@ export default function ResetPassword({ token, email, passwordVisibility, passwo
     });
 
     console.log("In Reset Password.")
+    useEffect(() => {
+        console.log("token is:")
+        console.log(token)
+    }, [])
 
     useEffect(() => {
         return () => {
@@ -31,17 +39,15 @@ export default function ResetPassword({ token, email, passwordVisibility, passwo
 
     const submit = (e) => {
         e.preventDefault();
-        console.log("Running submit function.")
-        post(route('password.email'), {
+        post(route('password.store'), {
             onSuccess: () => {
-                console.log("Ran the route");
-                navigate('/');
+                changePasswordVisibility(false)
+                setPasswordSuccess(true)
             },
             onError: (error) => {
-                console.error('Error:', error);
+                console.error('Error resetting password:', error);
             }
-        });
-    
+        });   
     };
 
     return (
@@ -96,9 +102,12 @@ export default function ResetPassword({ token, email, passwordVisibility, passwo
                     </div>
                     <InputError className='error-message' message={errors.password_confirmation} />
                 </div>
+                {passwordSuccess && 
+                <p>Password successfully reset!</p>
+                }
 
                 <div>
-                    <PrimaryButton className="ml-4" disabled={processing}>
+                    <PrimaryButton className="ml-4 reset-button" disabled={processing}>
                         Reset Password
                     </PrimaryButton>
                 </div>

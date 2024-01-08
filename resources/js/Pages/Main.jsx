@@ -81,16 +81,8 @@ const Main = () => {
   useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   useEffect(() => {
-    console.log("loginStatus is:")
-    console.log(loginStatus)
-  }, [loginStatus])
-
-  useEffect(() => {
-    console.log("Running checkLogin")
-    axios.get('checkLogin')
+    axios.get('/checkLogin')
     .then((res) =>{
-      console.log("with res of:")
-      console.log(res)
       if(res.data){
         setLoginStatus(true)
       }
@@ -103,8 +95,8 @@ const Main = () => {
   useEffect(() => {
     if(loginStatus){
       Promise.all([
-        axios.get('user'),
-        axios.get('userShows')
+        axios.get('/user'),
+        axios.get('/userShows')
       ])
       .then(([userRes, userShowsRes]) => {
         if(userRes.data){
