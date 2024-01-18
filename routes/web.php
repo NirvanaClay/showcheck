@@ -45,7 +45,7 @@ Route::get('/searchShows', function(Request $request){
     $showType = $request->query('showType');
     $searchQuery = $request->query('query');
     $apiKey = env('SEARCH_API_KEY');
-    $url = "https://imdb-api.com/en/API/Search${showType}/$apiKey/$searchQuery";
+    $url = "https://tv-api.com/en/API/Search${showType}/$apiKey/$searchQuery";
     try {
         $response = Http::get($url);
         return $response->json();

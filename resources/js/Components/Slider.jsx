@@ -1,5 +1,3 @@
-import axios from '../axiosConfig'
-
 import { useEffect, useState } from 'react'
 
 import Show from './Show'
