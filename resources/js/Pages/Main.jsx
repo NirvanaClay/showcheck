@@ -139,7 +139,7 @@ const Main = () => {
 
   const fetchResults = (e) => {
     e.preventDefault();
-    setStreamingServices([]);
+    setStreamingServices([])
     getResults([]);
     if(showType) {
         setResultsLoading(true);
