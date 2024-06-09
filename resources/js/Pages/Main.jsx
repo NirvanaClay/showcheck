@@ -84,11 +84,6 @@ const Main = () => {
   useSpinner(resultsLoading, resultsSpinnerDegree, setResultsSpinnerDegree);
 
   useEffect(() => {
-    console.log("Password visibility is:")
-    console.log(passwordVisibility)
-  }, [passwordVisibility])
-
-  useEffect(() => {
     axios.get('/checkLogin')
     .then((res) =>{
       if(res.data){
