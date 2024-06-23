@@ -85,12 +85,6 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
     getResults(results.filter((result) => result.id == e.target.id))
   }
 
-  useEffect(() => {
-    if(shows){
-      shows.sort((a, b) => a.title.localeCompare(b.title))
-    }
-  }, [shows])
-
   const updateSliderState = (items) => {
     if(items){
       const showLength = items.length
@@ -115,6 +109,12 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
       }
     }
   }
+
+  useEffect(() => {
+    if(shows){
+      shows.sort((a, b) => a.title.localeCompare(b.title))
+    }
+  }, [shows])
 
   useEffect(() => {
     updateSliderState(shows)
