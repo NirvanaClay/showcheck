@@ -114,6 +114,9 @@ const Main = () => {
     }
   }, [loginStatus, changedRating]);
 
+
+  //Retrieve User Shows
+
   useEffect((e) => {
     const fetchShows = () => {
       if(user){
@@ -131,6 +134,8 @@ const Main = () => {
     }
     fetchShows()
   }, [user, changedRating, userShows])
+
+  //Search For A Show
 
   const fetchResults = (e) => {
     e.preventDefault();
@@ -157,6 +162,7 @@ const Main = () => {
       }
   };
 
+  //Check streaming availability for show
 
   const checkStreaming = async (e) => {
     try {
@@ -219,7 +225,6 @@ const Main = () => {
         break;
       }
     }
-  
     if (showToCheck) {
       for (const key of Object.keys(showToCheck.streamingInfo)) {
         existingResults.push(key);
@@ -228,6 +233,7 @@ const Main = () => {
     }  
     return existingResults;
   }
+  
   function processFinalResults(results) {
     const logos = {
       prime: primeLogo,

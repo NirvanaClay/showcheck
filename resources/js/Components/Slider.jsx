@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Show from './Show'
 import Result from './Result'
 
-const Slider = ({ user, fetchResults, results, getResults, shows, series, getSeries, movies, getMovies, Link, checkStreaming, sliderPosition, setSliderPosition, setStreamingServices, streamingServices, streamingId, noStreaming, showType, showRatings, setShowRatings, isLoading, spinnerDegree, setSpinnerDegree, selectedResult, setSelectedResult, resizeResetSlider, changedRating, setChangedRating, truncateTitle, streamingError }) => {
+const Slider = ({ user, fetchResults, results, getResults, shows, series, getSeries, movies, getMovies, Link, checkStreaming, sliderPosition, setSliderPosition, setStreamingServices, streamingServices, streamingId, noStreaming, showType, isLoading, spinnerDegree, setSpinnerDegree, selectedResult, setSelectedResult, resizeResetSlider, changedRating, setChangedRating, truncateTitle }) => {
 
   const [leftArrowVisibility, setLeftArrowVisibility] = useState(false)
   const [rightArrowVisibility, setRightArrowVisibility] = useState(false)
@@ -48,65 +48,17 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
     showsPerPage = 3
   } 
   else if(small.matches && !xSmall.matches){
-    sliderWidth=320;
+    sliderWidth = 320;
     showsPerPage = 2
   } 
   else if(xSmall.matches){
-    sliderWidth=240; 
+    sliderWidth = 240; 
     showsPerPage = 2
   }  
   else {
-    sliderWidth=900;
+    sliderWidth = 900;
     showsPerPage = 4
   }
-
-  useEffect(() => {
-    if(shows){
-      shows.sort((a, b) => a.title.localeCompare(b.title))
-      const showLength = shows.length
-      if(showLength % showsPerPage != 0){
-        setTotalPages(Math.floor(shows.length / showsPerPage) + 1)
-      }
-      else{
-        setTotalPages(Math.floor(shows.length / showsPerPage))
-      }
-      setCurrentPage((sliderPosition / -sliderWidth) + 1)
-      if(currentPage < totalPages){
-        setRightArrowVisibility(true)
-      }
-      else{
-        setRightArrowVisibility(false)
-      }
-      if(currentPage > 1){
-        setLeftArrowVisibility(true)
-      }
-      else{
-        setLeftArrowVisibility(false)
-      }
-    }
-    if(results){
-      const showLength = results.length
-      if(showLength % showsPerPage != 0){
-        setTotalPages(Math.floor(results.length / showsPerPage) + 1)
-      }
-      else{
-        setTotalPages(Math.floor(results.length / showsPerPage))
-      }
-      setCurrentPage((sliderPosition / -sliderWidth) + 1)
-      if(currentPage < totalPages){
-        setRightArrowVisibility(true)
-      }
-      else{
-        setRightArrowVisibility(false)
-      }
-      if(currentPage > 1){
-        setLeftArrowVisibility(true)
-      }
-      else{
-        setLeftArrowVisibility(false)
-      }
-    }
-  }, [shows, results, sliderPosition, currentPage, totalPages])
 
   const toggleLeftHover = () => {
     setLeftHover(!leftHover)
@@ -132,6 +84,42 @@ const Slider = ({ user, fetchResults, results, getResults, shows, series, getSer
     setSelectedResult(true)
     getResults(results.filter((result) => result.id == e.target.id))
   }
+
+  useEffect(() => {
+    if(shows){
+      shows.sort((a, b) => a.title.localeCompare(b.title))
+    }
+  }, [shows])
+
+  const updateSliderState = (items) => {
+    if(items){
+      const showLength = items.length
+      if(showLength % showsPerPage != 0){
+        setTotalPages(Math.floor(items.length / showsPerPage) + 1)
+      }
+      else{
+        setTotalPages(Math.floor(items.length / showsPerPage))
+      }
+      setCurrentPage((sliderPosition / -sliderWidth) + 1)
+      if(currentPage < totalPages){
+        setRightArrowVisibility(true)
+      }
+      else{
+        setRightArrowVisibility(false)
+      }
+      if(currentPage > 1){
+        setLeftArrowVisibility(true)
+      }
+      else{
+        setLeftArrowVisibility(false)
+      }
+    }
+  }
+
+  useEffect(() => {
+    updateSliderState(shows)
+    updateSliderState(results)
+  }, [shows, results, sliderPosition, currentPage, totalPages])
 
   return (
     <div className='slider-container'>
