@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from '../axiosConfig'
 
 
-const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, pivotId, pivotUser, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle, streamingError }) => {
+const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle, streamingError }) => {
   
   const truncatedTitle = truncateTitle(title, 30)
-  
-  const [previewRating, setPreviewRating] = useState(rating)
   const [stateRating, setStateRating] = useState([rating || 0])
 
   useEffect(() => {
@@ -60,7 +58,7 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
   const addRatingPreview = (e) => {      
     let stars = document.querySelectorAll('i')
     for(let star of stars){
-      if(star.parentElement.parentElement.parentElement.id == id){
+      if(star.dataset.parentid == id){
         if(star.getAttribute('value') <= e.target.getAttribute('value')){
           star.classList.add('fas')
         }
@@ -74,7 +72,7 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
   const removeRatingPreview = (e) => {  
     let stars = document.querySelectorAll('i')
     for(let star of stars){
-      if(star.parentElement.parentElement.parentElement.id == id){
+      if(star.dataset.parentid == id){
         if(star.getAttribute('value') <= stateRating){
           star.classList.add('fas')
         }
@@ -93,7 +91,6 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
     <div className='show'>
       <div className='title-container'>
         <h3>{truncatedTitle}</h3>
-        {/* <h3>{title}</h3> */}
       </div>
       <img src={image} />
       {streamingId == imdb_id &&
@@ -119,19 +116,19 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
           <input type='hidden' className='rating' name='rating' value={stateRating} />
           <button type='submit'>
-            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={1}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={1} data-parentid={id}></i>
           </button>
           <button type='submit'>
-            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={2}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={2} data-parentid={id}></i>
           </button>
           <button type='submit'>
-            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={3}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={3} data-parentid={id}></i>
           </button>
           <button type='submit'>
-            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={4}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={4} data-parentid={id}></i>
           </button>
           <button type='submit'>
-            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={5}></i>
+            <i className="fa-regular fa-star" onMouseEnter={addRatingPreview} onMouseLeave={removeRatingPreview} onClick={setRatingValue} value={5} data-parentid={id}></i>
           </button>
         </form>
       </div>
