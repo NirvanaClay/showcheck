@@ -20,7 +20,7 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
     const checkRating = (e) => {
       let stars = document.querySelectorAll('i')
       for(let star of stars){
-        if(star.parentElement.parentElement.parentElement.id == id){
+        if(star.dataset.parentid == id){
           if(star.getAttribute('value') <= stateRating){
             star.classList.add('fas')
           }
@@ -33,17 +33,6 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
     checkRating()
   }, [stateRating])
 
-  const addRating = async (e) => {
-    e.preventDefault()
-    await axios.post(`/shows/${id}`, {
-      _method: 'PUT',
-      id: id,
-      rating: stateRating,
-      showType: show_type
-    })
-    setChangedRating(!changedRating)
-  }
-
   const deleteShow = async (e) => {
     e.preventDefault();
     axios.delete(`/shows/${id}`)
@@ -53,6 +42,17 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
     if(movies){
       getMovies(movies.filter((movie) => movie.id !== id))
     }
+  }
+
+  const addRating = async (e) => {
+    e.preventDefault()
+    await axios.post(`/shows/${id}`, {
+      _method: 'PUT',
+      id: id,
+      rating: stateRating,
+      showType: show_type
+    })
+    setChangedRating(!changedRating)
   }
 
   const addRatingPreview = (e) => {      
