@@ -1,0 +1,1 @@
+When you delete a show, the show list quickly refreshes with the show still being there, then refreshes again without it.

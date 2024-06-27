@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import SeriesList from './SeriesList';
 import axios from '../axiosConfig'
 
-const Result = ({ title, image, id, user, setStreamingServices, streamingServices, getResults, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, setSpinnerDegree, truncateTitle, streamingError }) => {
-
-  const [showAdded, setShowAdded] = useState(false);
+const Result = ({ title, image, id, user, setStreamingServices, streamingServices, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, truncateTitle, streamingError, showAdded, setShowAdded }) => {
 
   const truncatedTitle = truncateTitle(title, 30)
 
@@ -16,7 +14,14 @@ const Result = ({ title, image, id, user, setStreamingServices, streamingService
       return () => clearTimeout(timer);
     }
   }, [showAdded]);
-  
+
+  const updateShows = (shows, setShows, showData) => {
+    const showCheck = shows.some(show => show.imdb_id == showData.imdb_id)
+    if(!showCheck){
+      setShows([...shows, showData])
+      // setUserShows([...shows, showData])
+    }
+  }
 
   const myShow = async (e) => {
     e.preventDefault();
@@ -27,47 +32,19 @@ const Result = ({ title, image, id, user, setStreamingServices, streamingService
       imdb_id: id,
       show_type: showType
     } 
-    await axios.post('/shows', data)
-    .then(function(response){
+    try{
+      const response = await axios.post('/shows', data)
       setShowAdded(true)
       setStreamingServices([])
       if(showType == 'series'){
-        const seriesCheck = series.some(show => {
-          return show.id == response.data
-        })
-        if(seriesCheck){
-          return
-        }
-        else{
-          getSeries([...series, {
-            title: title,
-            image_url: image,
-            id: response.data,
-            imdb_id: id,
-            show_type: showType
-          }])
-        }
+        updateShows(series, getSeries, data)
       }
       else if(showType == 'movie'){
-        const moviesCheck = movies.some(movie => {
-          return movie.id == response.data
-        })
-        if(moviesCheck){
-          return
-        }
-        else{
-          getMovies([...movies, {
-            title: title,
-            image_url: image,
-            id: response.data,
-            imdb_id: id,
-            show_type: showType
-          }])
-        }
+        updateShows(movies, getMovies, data)
       }
-    }).catch((e) => {
-      console.log(e)
-    })
+    } catch(err){
+      console.error("Error adding show:", err)
+    }
   }
 
   return (
