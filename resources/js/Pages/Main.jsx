@@ -26,7 +26,8 @@ import '../../Styles/forgot-password.scss'
 import '../../Styles/reset-password.scss'
 
 
-import Home from './Home.jsx'
+// import Home from './Home.jsx'
+import Form from '../Components/Form.jsx'
 import Header from '../Components/Header.jsx'
 import SeriesList from '../Components/SeriesList.jsx'
 import MoviesList from '../Components/MoviesList.jsx'
@@ -66,6 +67,9 @@ const Main = () => {
 
   const [passwordVisibility, setPasswordVisibility] = useState(false)
   const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(false)
+
+  const [showAdded, setShowAdded] = useState(false);
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const noStreaming = "This show is not currently available through streaming."
 
@@ -112,8 +116,7 @@ const Main = () => {
         console.error("Error occured:", err)
       });
     }
-  }, [loginStatus, changedRating]);
-
+  }, [loginStatus, changedRating, showAdded, showDeleted]);
 
   //Retrieve User Shows
 
@@ -133,7 +136,7 @@ const Main = () => {
       }
     }
     fetchShows()
-  }, [user, changedRating, userShows])
+  }, [user, changedRating])
 
   //Search For A Show
 
@@ -277,7 +280,8 @@ const Main = () => {
     <Router>
       <Header resetSlider={resetSlider} Link={Link} loginStatus={loginStatus} setUser={setUser} setLoginStatus={setLoginStatus} LogoutForm={LogoutForm} />
       <Routes>
-        <Route path="/" element={<Home user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} setStreamingServices={setStreamingServices} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} resultsLoading={resultsLoading} resultsSpinnerDegree={resultsSpinnerDegree} truncateTitle={truncateTitle} streamingError={streamingError} />} />
+
+        <Route path="/" element={<Form user={user} Link={Link}  results={results} getResults={getResults} fetchResults={fetchResults} setStreamingServices={setStreamingServices} streamingServices={streamingServices} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingId={streamingId} noStreaming={noStreaming} showType={showType} setShowType={setShowType} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} failedSearch={failedSearch} setFailedSearch={setFailedSearch} resizeResetSlider={resizeResetSlider} resultsLoading={resultsLoading} resultsSpinnerDegree={resultsSpinnerDegree} truncateTitle={truncateTitle} streamingError={streamingError} showAdded={showAdded} setShowAdded={setShowAdded} />} />
 
         <Route path="register" element={<RegisterForm setUser={setUser} setLoginStatus={setLoginStatus} passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} registerError={registerError} setRegisterError={setRegisterError} />} />
 
@@ -287,9 +291,9 @@ const Main = () => {
 
         <Route path="reset-password/:token" element={<ResetPassword passwordVisibility={passwordVisibility} setPasswordVisibility={setPasswordVisibility} passwordConfirmVisibility={passwordConfirmVisibility} setPasswordConfirmVisibility={setPasswordConfirmVisibility} changePasswordVisibility={changePasswordVisibility} />} />
 
-        <Route path='my-series' element={<SeriesList user={user} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices} streamingId={streamingId} noStreaming={noStreaming} loginStatus={loginStatus} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} />} />
+        <Route path='my-series' element={<SeriesList user={user} series={series} getSeries={getSeries} movies={movies} getMovies={getMovies} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices} streamingId={streamingId} noStreaming={noStreaming} loginStatus={loginStatus} isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} setShowDeleted={setShowDeleted} showDeleted={showDeleted} />} />
 
-        <Route path='my-movies' element={<MoviesList movies={movies} getMovies={getMovies} series={series} getSeries={getSeries} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices}streamingId={streamingId} loginStatus={loginStatus} user={user} noStreaming={noStreaming}isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} />} />
+        <Route path='my-movies' element={<MoviesList movies={movies} getMovies={getMovies} series={series} getSeries={getSeries} Link={Link} checkStreaming={checkStreaming} sliderPosition={sliderPosition} setSliderPosition={setSliderPosition} streamingServices={streamingServices}streamingId={streamingId} loginStatus={loginStatus} user={user} noStreaming={noStreaming}isLoading={isLoading} spinnerDegree={spinnerDegree} setSpinnerDegree={setSpinnerDegree} resizeResetSlider={resizeResetSlider} changedRating={changedRating} setChangedRating={setChangedRating} truncateTitle={truncateTitle} streamingError={streamingError} setShowDeleted={setShowDeleted} showDeleted={showDeleted} />} />
 
       </Routes>
     </Router>

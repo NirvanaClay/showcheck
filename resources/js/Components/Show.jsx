@@ -2,10 +2,20 @@ import { useState, useEffect } from 'react'
 import axios from '../axiosConfig'
 
 
-const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle, streamingError }) => {
+const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServices, streamingId, show_type, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, changedRating, setChangedRating, truncateTitle, streamingError, setShowDeleted, showDeleted }) => {
   
   const truncatedTitle = truncateTitle(title, 30)
   const [stateRating, setStateRating] = useState([rating || 0])
+
+  useEffect(() => {
+    if (showDeleted) {
+      const timer = setTimeout(() => {
+        setShowDeleted(false);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [showDeleted]);
+  
 
   useEffect(() => {
     if(isLoading){
@@ -35,12 +45,18 @@ const Show = ({ title, image, id, imdb_id, rating, checkStreaming, streamingServ
 
   const deleteShow = async (e) => {
     e.preventDefault();
-    axios.delete(`/shows/${id}`)
-    if(series){
-      getSeries(series.filter((show) => show.id !== id))
-    }
-    if(movies){
-      getMovies(movies.filter((movie) => movie.id !== id))
+    try {
+      if(series){
+        getSeries(series.filter((show) => show.id !== id));
+      }
+      if(movies){
+        getMovies(movies.filter((movie) => movie.id !== id));
+      }
+      await axios.delete(`/shows/${id}`);
+      setShowDeleted(true); 
+      setTimeout(() => setShowDeleted(false), 0);
+    } catch (error) {
+      console.error("Error deleting show:", error);
     }
   }
 
