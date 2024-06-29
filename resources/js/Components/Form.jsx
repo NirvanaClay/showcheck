@@ -1,10 +1,7 @@
-import Axios from '../axiosConfig'
-
 import { Link } from 'react-router-dom'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import Result from './Result'
 import Slider from './Slider'
 
 const Form = ({ user, setStreamingServices, streamingServices, fetchResults, results, getResults, checkStreaming, sliderPosition, setSliderPosition, showType, setShowType, streamingId, noStreaming, series, getSeries, movies, getMovies, isLoading, spinnerDegree, setSpinnerDegree, failedSearch, setFailedSearch, resizeResetSlider, resultsLoading, resultsSpinnerDegree, truncateTitle, streamingError, showAdded, setShowAdded }) => {
