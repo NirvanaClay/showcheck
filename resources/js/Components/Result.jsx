@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import SeriesList from './SeriesList';
+import { useEffect } from 'react'
 import axios from '../axiosConfig'
 
 const Result = ({ title, image, id, user, setStreamingServices, streamingServices, checkStreaming, showType, streamingId, noStreaming, series, getSeries, movies, getMovies, selectedResult, isLoading, spinnerDegree, truncateTitle, streamingError, showAdded, setShowAdded }) => {
@@ -19,7 +18,6 @@ const Result = ({ title, image, id, user, setStreamingServices, streamingService
     const showCheck = shows.some(show => show.imdb_id == showData.imdb_id)
     if(!showCheck){
       setShows([...shows, showData])
-      // setUserShows([...shows, showData])
     }
   }
 

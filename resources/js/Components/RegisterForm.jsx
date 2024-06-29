@@ -1,8 +1,7 @@
 import axios from '../axiosConfig';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
-const RegisterForm = ({ setUser, setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility, registerError, setRegisterError }) => {
+const RegisterForm = ({ setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, passwordConfirmVisibility, setPasswordConfirmVisibility, registerError, setRegisterError }) => {
   const navigate = useNavigate();
 
   const addUser = (e) => {

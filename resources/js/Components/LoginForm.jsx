@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../axiosConfig'
 
-const LoginForm = ({ setLoginStatus, setUser, loginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, userShows, setUserShows, loginError, setLoginError }) => {
+const LoginForm = ({ setLoginStatus, passwordVisibility, setPasswordVisibility, changePasswordVisibility, loginError, setLoginError }) => {
   const navigate = useNavigate()
   
   const loginUser = async (e) => {
