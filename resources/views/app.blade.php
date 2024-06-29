@@ -6,14 +6,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title inertia>{{ config('app.name', 'Showcheck') }}</title>
-                {{-- <title inertia>Testing</title> --}}
 
         <!-- Fonts -->
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
         </style>
-        {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
         <!-- Scripts -->
         @routes
