@@ -4,8 +4,7 @@ import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function ForgotPassword({ status }) {
-// export default function ForgotPassword() {
+export default function ForgotPassword() {
     const [statusMessage, setStatusMessage] = useState('')
 
     const { data, setData, post, processing, errors } = useForm({

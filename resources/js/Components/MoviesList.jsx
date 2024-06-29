@@ -1,8 +1,3 @@
-import Axios from '../axiosConfig'
-
-import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-
 import Slider from './Slider.jsx'
 
 const MoviesList = ({ movies, getMovies, Link, sliderPosition, setSliderPosition, checkStreaming, streamingId, streamingServices, showRatings, setShowRatings, noStreaming, spinnerDegree, setSpinnerDegree, isLoading, resizeResetSlider, changedRating, setChangedRating, truncateTitle, setShowDeleted, showDeleted }) => {
