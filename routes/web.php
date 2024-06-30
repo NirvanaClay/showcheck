@@ -128,11 +128,7 @@ Route::post('/logout', function(Request $request){
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    // return redirect('/');
 });
-
-// Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-// ->name('password.request');
 
 Route::post('/reset-password', function(Request $request): RedirectResponse
 {
@@ -163,10 +159,6 @@ Route::post('/reset-password', function(Request $request): RedirectResponse
 
 Route::get('{any}', function () {
     return Inertia::render('Main', [
-        // 'canLogin' => Route::has('login'),
-        // 'canRegister' => Route::has('register'),
-        // 'laravelVersion' => Application::VERSION,
-        // 'phpVersion' => PHP_VERSION,
     ]);
 });
 
